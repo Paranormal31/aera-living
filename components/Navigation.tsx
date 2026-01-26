@@ -41,9 +41,15 @@ export function Navigation() {
               </Link>
             ))}
 
-            <Button className="rounded-full font-medium tracking-wide px-6">
-              Book a Stay
-            </Button>
+            <a
+              href="https://wa.me/918544337974?text=Hi%2C%0AI%20would%20like%20to%20book%20a%20property%20from%20Aera%20Living.%20I%20have%20some%20questions%20about%20it."
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button className="rounded-full font-medium tracking-wide px-6">
+                Book a Stay
+              </Button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -70,7 +76,14 @@ export function Navigation() {
                 </Link>
               ))}
 
-              <Button className="rounded-full w-full">Book a Stay</Button>
+              <a
+                href="https://wa.me/918544337974?text=Hi%2C%0AI%20would%20like%20to%20book%20a%20property%20from%20Aera%20Living.%20I%20have%20some%20questions%20about%20it."
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Button className="rounded-full w-full">Book a Stay</Button>
+              </a>
             </div>
           </div>
         )}
