@@ -6,11 +6,11 @@ const locations = [
     name: "Retro Den",
     slug: "retro-den",
     city: "Dehradun, India",
-    price: 4500,
+    price: 10000,
     rating: 4.9,
     reviews: 128,
-    bedrooms: 2,
-    guests: 4,
+    bedrooms: 4,
+    guests: 12,
     image: "/images/retro-den.jpg",
     tags: ["Hill View", "Cozy", "Central"],
   },
@@ -18,10 +18,10 @@ const locations = [
     name: "Doon’s Den",
     slug: "doons-den",
     city: "Dehradun, India",
-    price: 5200,
+    price: 3400,
     rating: 5.0,
     reviews: 96,
-    bedrooms: 3,
+    bedrooms: 2,
     guests: 6,
     image: "/images/doons-den.jpg",
     tags: ["Spacious", "Modern", "Family Friendly"],
@@ -44,9 +44,11 @@ export default function LocationsPage() {
       {/* Listings */}
       <section className="max-w-6xl mx-auto px-6 space-y-12 pb-24">
         {locations.map((loc) => (
-          <div
+          <Link
             key={loc.slug}
-            className="bg-white rounded-2xl shadow-sm overflow-hidden flex flex-col md:flex-row"
+            href={`/locations/${loc.slug}`}
+            className="block bg-white rounded-2xl shadow-sm overflow-hidden flex flex-col md:flex-row cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400"
+            aria-label={`View details for ${loc.name}`}
           >
             {/* Image */}
             <div className="relative w-full md:w-1/2 h-72 md:h-auto">
@@ -95,15 +97,12 @@ export default function LocationsPage() {
                   <span className="text-sm text-gray-500"> / night</span>
                 </p>
 
-                <Link
-                  href={`/locations/${loc.slug}`}
-                  className="flex items-center gap-2 text-sm font-medium hover:underline"
-                >
+                <span className="flex items-center gap-2 text-sm font-medium">
                   View Details →
-                </Link>
+                </span>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </section>
     </main>
