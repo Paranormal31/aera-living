@@ -1,7 +1,9 @@
 import Image from "next/image";
+import DesignPhilosophy from "@/components/DesignPhilosophy";
 
 export default function InteriorDesignPage() {
-  return (
+return (
+  <>
     <section className="max-w-7xl mx-auto px-6 pt-32 pb-24">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
         {/* Left content */}
@@ -50,5 +52,8 @@ export default function InteriorDesignPage() {
         </div>
       </div>
     </section>
-  );
+    
+    <DesignPhilosophy />
+  </>
+);
 }
