@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Aera Living | Luxury Stays in Dehradun",
-  description: "Luxury Airbnb stays in Dehradun by Aera Living",
+  description: "Luxury stays and interior design by Aera Living",
 };
 
 export default function RootLayout({
@@ -13,12 +13,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        {/* Fixed Navbar */}
+        {/* Fixed Navigation */}
         <Navigation />
 
-        {/* Page content offset for fixed navbar */}
+        {/* Page Content */}
         <main className="pt-24">{children}</main>
       </body>
     </html>
