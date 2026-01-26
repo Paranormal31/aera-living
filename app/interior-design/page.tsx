@@ -26,8 +26,28 @@ export default function InteriorDesignPage() {
           </div>
         </div>
 
-        {/* Right column placeholder (images next step) */}
-        <div className="relative h-[420px] bg-muted rounded-2xl" />
+        {/* Right column images */}
+        <div className="relative h-[460px]">
+          {/* Image 1 */}
+          <div className="absolute left-0 top-0 w-[55%] h-[300px] rounded-2xl overflow-hidden shadow-sm">
+            <Image
+              src="/interior-design/interior-1.jpg"
+              alt="Interior design detail"
+              fill
+              className="object-cover"
+            />
+          </div>
+
+          {/* Image 2 */}
+          <div className="absolute right-0 bottom-0 w-[55%] h-[320px] rounded-2xl overflow-hidden shadow-sm">
+            <Image
+              src="/interior-design/interior-2.jpg"
+              alt="Interior design space"
+              fill
+              className="object-cover"
+            />
+          </div>
+        </div>
       </div>
     </section>
   );
