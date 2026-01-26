@@ -10,7 +10,7 @@ export function Navigation() {
 
   const navLinks = [
     { path: "/", label: "Home" },
-    { path: "/stays", label: "Stays" },
+    { path: "/locations", label: "Locations" },
     { path: "/interior-design", label: "Interior Design" },
   ];
 
