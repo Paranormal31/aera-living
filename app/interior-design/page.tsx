@@ -1,6 +1,10 @@
 import Image from "next/image";
 import DesignPhilosophy from "@/components/DesignPhilosophy";
 import Transformations from "@/components/Transformations";
+import OurServices from "@/components/OurServices";
+import StartProject from "@/components/StartProject";
+
+
 
 export default function InteriorDesignPage() {
   return (
@@ -55,7 +59,12 @@ export default function InteriorDesignPage() {
       </section>
 
       <DesignPhilosophy />
+
       <Transformations />
+
+      <OurServices />
+
+      <StartProject />
     </>
   );
 }

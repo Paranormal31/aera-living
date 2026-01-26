@@ -21,6 +21,20 @@ export default function Transformations() {
           title="Coastal Bedroom Transformation"
           description="From dated to serene minimalism"
         />
+
+        <TransformationCard
+          beforeImage="/transformations/before-2.jpg"
+          afterImage="/transformations/after-2.jpg"
+          title="Urban Living Room Redesign"
+          description="A warm, modern space designed for everyday living"
+        />
+
+        <TransformationCard
+          beforeImage="/transformations/before-3.jpg"
+          afterImage="/transformations/after-3.jpg"
+          title="Minimalist Kitchen Upgrade"
+          description="Clean lines, improved functionality, timeless appeal"
+        />
       </div>
     </section>
   );
