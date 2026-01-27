@@ -9,7 +9,7 @@ export default function CuratedLocations() {
       slug: "retro-den",
       image: "/locations/retro-den.jpg",
       description: "A bold, retro-inspired stay with artistic interiors.",
-      price: "₹4,500 / night",
+      price: "₹10,000 / night",
     },
     {
       name: "Doon’s Den",
@@ -17,7 +17,7 @@ export default function CuratedLocations() {
       slug: "doons-den",
       image: "/locations/doons-den.jpg",
       description: "A warm, cozy retreat nestled in the heart of the valley.",
-      price: "₹3,800 / night",
+      price: "₹3,400 / night",
     },
   ];
 
@@ -41,7 +41,8 @@ export default function CuratedLocations() {
             <Link
               key={location.slug}
               href={`/locations/${location.slug}`}
-              className="group block overflow-hidden rounded-2xl"
+              aria-label={`View details for ${location.name}`}
+              className="group block overflow-hidden rounded-2xl cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               <div className="relative h-[420px]">
                 <Image
@@ -55,7 +56,7 @@ export default function CuratedLocations() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
                 {/* Text */}
-                <div className="absolute bottom-0 p-6 text-white">
+                <div className="absolute bottom-0 p-6 text-white select-none">
                   <div className="text-xs uppercase tracking-widest opacity-80">
                     {location.city}
                   </div>
