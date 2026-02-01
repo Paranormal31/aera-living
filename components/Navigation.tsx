@@ -46,7 +46,22 @@ export function Navigation() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Button className="rounded-full font-medium tracking-wide px-6">
+              <Button
+                className="
+                 rounded-full
+    px-5
+    py-2.5
+    text-sm
+    font-medium
+    tracking-wide
+    bg-neutral-900
+    text-white
+    shadow-md
+    hover:shadow-lg
+    hover:scale-[1.03]
+    transition-all
+    duration-300"
+              >
                 Book a Stay
               </Button>
             </a>
@@ -82,7 +97,9 @@ export function Navigation() {
                 rel="noopener noreferrer"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <Button className="rounded-full w-full">Book a Stay</Button>
+                <Button className="rounded-full py-2.5 text-sm font-medium">
+                  Book a Stay
+                </Button>
               </a>
             </div>
           </div>
