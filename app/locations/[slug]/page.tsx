@@ -14,7 +14,7 @@ const propertyData: Record<string, any> = {
     city: "Dehradun, India",
     bedrooms: 4,
     guests: 12,
-    bathrooms: 4,
+    bathrooms: 3,
     price: 10000,
     rating: 4.9,
     reviews: 128,

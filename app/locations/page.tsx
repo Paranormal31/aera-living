@@ -11,6 +11,7 @@ const locations = [
     reviews: 128,
     bedrooms: 4,
     guests: 12,
+    bathrooms: 3,
     image: "/images/retro-den.jpg",
     tags: ["Hill View", "Cozy", "Central"],
   },
@@ -23,6 +24,7 @@ const locations = [
     reviews: 96,
     bedrooms: 2,
     guests: 6,
+    bathrooms: 2,
     image: "/images/doons-den.jpg",
     tags: ["Spacious", "Modern", "Family Friendly"],
   },
@@ -86,6 +88,7 @@ export default function LocationsPage() {
                 <div className="flex gap-6 text-sm text-gray-600 mb-3">
                   <span>🛏 {loc.bedrooms} Bedrooms</span>
                   <span>👥 Up to {loc.guests} Guests</span>
+                  <span>🚿 {loc.bathrooms} Bathrooms</span>
                 </div>
 
                 <p className="text-sm text-gray-500">{loc.reviews} reviews</p>
