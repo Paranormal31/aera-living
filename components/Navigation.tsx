@@ -12,6 +12,7 @@ export function Navigation() {
     { path: "/", label: "Home" },
     { path: "/locations", label: "Locations" },
     { path: "/interior-design", label: "Interior Design" },
+    { path: "/customer-review", label: "Customer Review" },
   ];
 
   return (
