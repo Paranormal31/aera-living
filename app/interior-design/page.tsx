@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import DesignPhilosophy from "@/components/DesignPhilosophy";
 import Transformations from "@/components/Transformations";
 import OurServices from "@/components/OurServices";
@@ -14,7 +15,7 @@ export default function InteriorDesignPage() {
           {/* Left content */}
           <div>
             <h1 className="font-['Cormorant'] text-5xl lg:text-6xl font-semibold text-foreground leading-tight">
-              Bespoke Interior Design
+              The AeraLiving Effect
             </h1>
             <p className="mt-6 max-w-xl text-muted-foreground text-lg leading-relaxed">
               Our award-winning design team brings your vision to life with
@@ -23,13 +24,19 @@ export default function InteriorDesignPage() {
             </p>
             {/* CTA placeholder */}
             <div className="mt-10 flex gap-4">
-              <button className="px-6 py-3 rounded-full bg-foreground text-background font-medium">
+              <Link
+                href="#start-project"
+                className="px-6 py-3 rounded-full bg-foreground text-background font-medium"
+              >
                 Start Your Project
-              </button>
+              </Link>
 
-              <button className="px-6 py-3 rounded-full border border-border text-foreground font-medium">
+              <Link
+                href="#transformations"
+                className="px-6 py-3 rounded-full border border-border text-foreground font-medium"
+              >
                 View Portfolio
-              </button>
+              </Link>
             </div>
           </div>
 
