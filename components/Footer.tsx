@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowRight, Instagram, Mail, Sparkles } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -42,9 +43,13 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#9aaa94] rounded-full flex items-center justify-center font-semibold">
-                A
-              </div>
+              <Image
+                src="/brand/aeraliving-logo.jpeg"
+                alt="AeraLiving logo"
+                width={40}
+                height={40}
+                className="h-10 w-10 rounded-full object-cover ring-1 ring-white/15"
+              />
               <span className="font-serif text-xl">AeraLiving</span>
             </div>
 
