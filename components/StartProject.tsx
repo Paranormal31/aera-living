@@ -93,7 +93,7 @@ export default function StartProject() {
               </div>
               <div>
                 <p className="text-neutral-500">Email</p>
-                <p className="font-medium">design@aeraliving.com</p>
+                <p className="font-medium">aeraliving.llp@gmail.com</p>
               </div>
             </div>
 
@@ -103,7 +103,7 @@ export default function StartProject() {
               </div>
               <div>
                 <p className="text-neutral-500">Phone</p>
-                <p className="font-medium">+1 (555) 123-4567</p>
+                <p className="font-medium">+91 85443 37974</p>
               </div>
             </div>
           </div>
