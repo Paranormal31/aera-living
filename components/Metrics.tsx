@@ -4,7 +4,7 @@ export default function Metrics() {
   const items = [
     {
       icon: "/icons/properties.png",
-      value: "2",
+      value: "3",
       label: "Premium Properties",
     },
     {
