@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
@@ -22,9 +23,14 @@ export function Navigation() {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center">
-              <span className="text-lg font-semibold text-white">A</span>
-            </div>
+            <Image
+              src="/brand/aeraliving-logo.jpeg"
+              alt="AeraLiving logo"
+              width={40}
+              height={40}
+              className="h-10 w-10 rounded-full object-cover"
+              priority
+            />
             <span className="font-['Cormorant'] text-2xl font-semibold tracking-[-0.02em]">
               AeraLiving
             </span>
