@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight, Users, Plus, Minus, AlertCircle } from "luci
 
 type BookingWidgetProps = {
   price: number;
-  reviews: number;
+  reviews: number | string;
   maxGuests: number;
   bookedDates: string[]; // Array of date strings in YYYY-MM-DD format
 };
@@ -186,7 +186,9 @@ export default function BookingWidget({
           </span>
           <span className="text-gray-500">/ night</span>
         </div>
-        <p className="text-sm text-gray-600">{reviews} reviews</p>
+        <p className="text-sm text-gray-600">
+          {typeof reviews === "string" ? reviews : `${reviews} reviews`}
+        </p>
       </div>
 
       {/* Booking Form */}

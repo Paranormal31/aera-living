@@ -4,23 +4,23 @@ export default function Metrics() {
   const items = [
     {
       icon: "/icons/properties.png",
-      value: "50+",
+      value: "2",
       label: "Premium Properties",
     },
     {
       icon: "/icons/guests.png",
-      value: "2,500+",
+      value: "50+",
       label: "Happy Guests",
     },
     {
       icon: "/icons/locations.png",
-      value: "12",
-      label: "Global Locations",
+      value: "Dehradun",
+      label: "Locations",
     },
     {
       icon: "/icons/rating.png",
-      value: "4.9/5",
-      label: "Guest Rating",
+      value: "4.77",
+      label: "Airbnb Rating",
     },
   ];
 

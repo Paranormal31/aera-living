@@ -7,8 +7,8 @@ const locations = [
     slug: "retro-den",
     city: "Dehradun, India",
     price: 10000,
-    rating: 4.9,
-    reviews: 128,
+    rating: 5,
+    reviews: "New Launch",
     bedrooms: 4,
     guests: 12,
     bathrooms: 3,
@@ -20,8 +20,8 @@ const locations = [
     slug: "doons-den",
     city: "Dehradun, India",
     price: 3400,
-    rating: 5.0,
-    reviews: 96,
+    rating: 4.77,
+    reviews: 13,
     bedrooms: 2,
     guests: 6,
     bathrooms: 2,
@@ -91,7 +91,11 @@ export default function LocationsPage() {
                   <span>🚿 {loc.bathrooms} Bathrooms</span>
                 </div>
 
-                <p className="text-sm text-gray-500">{loc.reviews} reviews</p>
+                <p className="text-sm text-gray-500">
+                  {typeof loc.reviews === "string"
+                    ? loc.reviews
+                    : `${loc.reviews} reviews`}
+                </p>
               </div>
 
               <div className="flex items-center justify-between mt-6">

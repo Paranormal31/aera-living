@@ -1,7 +1,21 @@
-import { ArrowRight, Instagram, Facebook, Mail } from "lucide-react";
+"use client";
+
+import { ArrowRight, Instagram, Mail, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Footer() {
+  const [isEmailOpen, setIsEmailOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isEmailOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsEmailOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isEmailOpen]);
+
   return (
     <footer className="bg-[#2b2b28] text-white">
       {/* Partner CTA */}
@@ -71,9 +85,23 @@ export default function Footer() {
           <div>
             <p className="mb-4 font-medium">CONNECT</p>
             <div className="flex gap-4 mb-4">
-              <Instagram />
-              <Facebook />
-              <Mail />
+              <a
+                href="https://www.instagram.com/aeraliving.in/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="AeraLiving on Instagram"
+                className="transition opacity-80 hover:opacity-100"
+              >
+                <Instagram />
+              </a>
+              <button
+                type="button"
+                onClick={() => setIsEmailOpen(true)}
+                aria-label="Email AeraLiving"
+                className="transition opacity-80 hover:opacity-100"
+              >
+                <Mail />
+              </button>
             </div>
             <p className="text-sm text-neutral-400">hello@aeraliving.com</p>
           </div>
@@ -82,6 +110,45 @@ export default function Footer() {
         <p className="mt-16 text-center text-sm text-neutral-500">
           © 2026 AeraLiving. All rights reserved.
         </p>
+      </div>
+      <div
+        className={`fixed inset-0 z-50 flex items-center justify-center px-6 transition-all ${
+          isEmailOpen ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+        aria-hidden={!isEmailOpen}
+      >
+        <div
+          className={`absolute inset-0 bg-black/60 transition-opacity ${
+            isEmailOpen ? "opacity-100" : "opacity-0"
+          }`}
+          onClick={() => setIsEmailOpen(false)}
+        />
+        <div
+          className={`relative w-full max-w-md rounded-3xl border border-white/10 bg-[#1f1f1c] p-8 text-center shadow-2xl transition-all ${
+            isEmailOpen ? "translate-y-0 scale-100" : "translate-y-4 scale-95"
+          }`}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Email address"
+        >
+          <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-white/10">
+            <Sparkles size={26} />
+          </div>
+          <h3 className="font-serif text-2xl">Reach us directly</h3>
+          <p className="mt-3 text-sm text-neutral-300">
+            We will get back to you within 24 hours.
+          </p>
+          <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-base font-medium">
+            aeraliving.llp@gmail.com
+          </div>
+          <button
+            type="button"
+            onClick={() => setIsEmailOpen(false)}
+            className="mt-6 w-full rounded-full bg-white text-black px-6 py-3 text-sm font-medium transition hover:scale-[1.01]"
+          >
+            Close
+          </button>
+        </div>
       </div>
     </footer>
   );
