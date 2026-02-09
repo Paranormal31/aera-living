@@ -1,30 +1,3 @@
-const placeholderReviews = [
-  {
-    id: "demo-1",
-    name: "Maya Collins",
-    location: "Dehradun",
-    message:
-      "Warm, calm, and beautifully detailed. The team thought through every corner.",
-    date: "Jan 6, 2026",
-  },
-  {
-    id: "demo-2",
-    name: "Ravi Malhotra",
-    location: "Mussoorie",
-    message:
-      "AeraLiving handled our timeline with care and kept the process effortless.",
-    date: "Dec 18, 2025",
-  },
-  {
-    id: "demo-3",
-    name: "Nadia Sharma",
-    location: "Rishikesh",
-    message:
-      "We felt listened to throughout. The final space feels serene and intentional.",
-    date: "Nov 30, 2025",
-  },
-];
-
 export default function CustomerReviewPage() {
   return (
     <div className="min-h-screen bg-white">
@@ -96,40 +69,14 @@ export default function CustomerReviewPage() {
           </div>
 
           <div className="lg:col-span-3">
-            <div className="flex items-center justify-between">
+            <div className="rounded-2xl border border-border p-6 shadow-sm">
               <h2 className="text-lg font-medium text-foreground">
-                Recent Highlights
+                Featured Reviews
               </h2>
-              <span className="text-sm text-muted-foreground">
-                {placeholderReviews.length} featured
-              </span>
-            </div>
-
-            <div className="mt-6 grid grid-cols-1 gap-6">
-              {placeholderReviews.map((review) => (
-                <article
-                  key={review.id}
-                  className="rounded-2xl border border-border p-6 shadow-sm"
-                >
-                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                      <p className="text-base font-medium text-foreground">
-                        {review.name}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {review.location}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {review.date}
-                      </p>
-                    </div>
-                  </div>
-
-                  <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-                    {review.message}
-                  </p>
-                </article>
-              ))}
+              <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                Featured reviews are currently hidden while we refresh this
+                section. Check back soon.
+              </p>
             </div>
           </div>
         </div>
