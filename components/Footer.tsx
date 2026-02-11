@@ -30,7 +30,7 @@ export default function Footer() {
           manage your property with excellence.
         </p>
 
-        <Link href="/partner-portal">
+        <Link href="/interior-design#start-project">
           <button className="mt-10 inline-flex items-center gap-3 rounded-full bg-white text-black px-8 py-4 font-medium hover:scale-105 transition">
             Learn More <ArrowRight size={16} />
           </button>

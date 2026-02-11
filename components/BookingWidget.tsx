@@ -172,6 +172,17 @@ export default function BookingWidget({
     }
   };
 
+  const getNightsCount = () => {
+    if (!checkIn || !checkOut) return 0;
+    const start = new Date(checkIn);
+    const end = new Date(checkOut);
+    const diffMs = end.getTime() - start.getTime();
+    return Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
+  };
+
+  const nightsCount = getNightsCount();
+  const totalCost = nightsCount * price;
+
   const formatDateForMessage = (date: Date) =>
     date.toLocaleDateString("en-US", {
       month: "short",
@@ -371,6 +382,19 @@ export default function BookingWidget({
             >
               <Plus className="w-4 h-4 text-gray-600" />
             </button>
+          </div>
+        </div>
+
+        {/* Total Cost */}
+        <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+          <div className="flex items-center justify-between text-sm text-gray-600">
+            <span>Total for {nightsCount} {nightsCount === 1 ? "night" : "nights"}</span>
+    <span className="font-semibold text-gray-900">
+              ₹{totalCost.toLocaleString("en-IN")}
+            </span>
+          </div>
+          <div className="mt-1 text-xs text-gray-500">
+            {guests} {guests === 1 ? "guest" : "guests"}
           </div>
         </div>
 
