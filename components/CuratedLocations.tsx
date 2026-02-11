@@ -36,7 +36,7 @@ export default function CuratedLocations() {
         </div>
 
         {/* Cards */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-10">
           {locations.map((location) => (
             <Link
               key={location.slug}
@@ -71,6 +71,30 @@ export default function CuratedLocations() {
               </div>
             </Link>
           ))}
+          <div
+            aria-label="New location coming soon"
+            className="group block overflow-hidden rounded-2xl border border-foreground/10 bg-gradient-to-br from-foreground/5 via-foreground/0 to-foreground/10"
+          >
+            <div className="relative h-[420px]">
+              <div className="absolute inset-0">
+                <div className="absolute -top-10 -right-10 h-48 w-48 rounded-full bg-foreground/10 blur-3xl" />
+                <div className="absolute -bottom-8 -left-8 h-40 w-40 rounded-full bg-foreground/10 blur-3xl" />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8">
+                <div className="text-xs uppercase tracking-[0.35em] text-foreground/70">
+                  Coming Soon
+                </div>
+                <h3 className="mt-3 font-['Cormorant'] text-3xl font-semibold text-foreground">
+                  New Destination
+                </h3>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  A fresh escape is being prepared with the same signature
+                  detail and warmth.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

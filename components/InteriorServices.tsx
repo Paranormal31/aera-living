@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 
 export default function InteriorServices() {
@@ -44,10 +45,13 @@ export default function InteriorServices() {
             ))}
           </ul>
 
-          <button className="mt-10 inline-flex items-center gap-3 rounded-full bg-[#9aaa94] px-7 py-3 text-white font-medium hover:bg-[#88977f] transition">
+          <Link
+            href="/interior-design#transformations"
+            className="mt-10 inline-flex items-center gap-3 rounded-full bg-[#9aaa94] px-7 py-3 text-white font-medium hover:bg-[#88977f] transition"
+          >
             Explore Our Work
             <ArrowRight size={16} />
-          </button>
+          </Link>
         </div>
 
         {/* Right Images */}

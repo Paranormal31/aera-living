@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -29,13 +30,19 @@ export default function Hero() {
           </p>
 
           <div className="mt-12 flex items-center justify-center gap-5">
-            <button className="px-6 py-3 rounded-full bg-white text-foreground font-medium tracking-wide">
+            <Link
+              href="/locations"
+              className="px-6 py-3 rounded-full bg-white text-foreground font-medium tracking-wide"
+            >
               Explore Stays
-            </button>
+            </Link>
 
-            <button className="px-6 py-3 rounded-full border border-white/60 text-white font-medium tracking-wide">
+            <Link
+              href="/interior-design"
+              className="px-6 py-3 rounded-full border border-white/60 text-white font-medium tracking-wide"
+            >
               Partner With Us
-            </button>
+            </Link>
           </div>
         </div>
       </div>

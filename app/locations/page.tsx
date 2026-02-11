@@ -7,8 +7,8 @@ const locations = [
     slug: "retro-den",
     city: "Dehradun, India",
     price: 10000,
-    rating: 4.9,
-    reviews: 128,
+    rating: 5,
+    reviews: "New Launch",
     bedrooms: 4,
     guests: 12,
     bathrooms: 3,
@@ -20,8 +20,8 @@ const locations = [
     slug: "doons-den",
     city: "Dehradun, India",
     price: 3400,
-    rating: 5.0,
-    reviews: 96,
+    rating: 4.77,
+    reviews: 13,
     bedrooms: 2,
     guests: 6,
     bathrooms: 2,
@@ -91,7 +91,11 @@ export default function LocationsPage() {
                   <span>🚿 {loc.bathrooms} Bathrooms</span>
                 </div>
 
-                <p className="text-sm text-gray-500">{loc.reviews} reviews</p>
+                <p className="text-sm text-gray-500">
+                  {typeof loc.reviews === "string"
+                    ? loc.reviews
+                    : `${loc.reviews} reviews`}
+                </p>
               </div>
 
               <div className="flex items-center justify-between mt-6">
@@ -107,6 +111,39 @@ export default function LocationsPage() {
             </div>
           </Link>
         ))}
+        <div
+          aria-label="New location coming soon"
+          className="block bg-white rounded-2xl shadow-sm overflow-hidden flex flex-col md:flex-row border border-gray-100"
+        >
+          <div className="relative w-full md:w-1/2 h-72 md:h-auto">
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-100 via-white to-gray-50" />
+            <div className="absolute -top-8 -right-8 h-40 w-40 rounded-full bg-gray-200/60 blur-3xl" />
+            <div className="absolute -bottom-10 -left-10 h-48 w-48 rounded-full bg-gray-200/60 blur-3xl" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-xs uppercase tracking-[0.35em] text-gray-500">
+                Coming Soon
+              </span>
+            </div>
+          </div>
+          <div className="p-8 flex flex-col justify-between w-full md:w-1/2">
+            <div>
+              <p className="text-sm text-gray-500 mb-1">New Destination</p>
+              <h2 className="text-2xl font-serif mb-4">
+                Next Location Reveal
+              </h2>
+              <p className="text-sm text-gray-500">
+                We&apos;re crafting a fresh retreat with the same signature
+                comfort and detail. Stay tuned.
+              </p>
+            </div>
+            <div className="flex items-center justify-between mt-6">
+              <p className="text-xl font-semibold text-gray-700">Coming Soon</p>
+              <span className="flex items-center gap-2 text-sm font-medium text-gray-500">
+                Details Soon
+              </span>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
   );

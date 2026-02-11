@@ -1,6 +1,6 @@
 export default function StartProject() {
   return (
-    <section className="bg-[#faf9f7] py-32">
+    <section id="start-project" className="bg-[#faf9f7] py-32">
       <div className="max-w-5xl mx-auto px-6 text-center">
         <h2 className="text-4xl md:text-5xl font-serif text-neutral-900">
           Start Your Project
@@ -93,7 +93,7 @@ export default function StartProject() {
               </div>
               <div>
                 <p className="text-neutral-500">Email</p>
-                <p className="font-medium">design@aeraliving.com</p>
+                <p className="font-medium">aeraliving.llp@gmail.com</p>
               </div>
             </div>
 
@@ -103,7 +103,7 @@ export default function StartProject() {
               </div>
               <div>
                 <p className="text-neutral-500">Phone</p>
-                <p className="font-medium">+1 (555) 123-4567</p>
+                <p className="font-medium">+91 85443 37974</p>
               </div>
             </div>
           </div>

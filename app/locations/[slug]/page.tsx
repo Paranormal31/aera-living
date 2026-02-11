@@ -17,7 +17,7 @@ const propertyData: Record<string, any> = {
     bathrooms: 3,
     price: 10000,
     rating: 4.9,
-    reviews: 128,
+    reviews: "New Launch",
     description:
       "Experience the ultimate in retro-inspired luxury at The Retro Den. This architectural masterpiece features bold, artistic interiors that blend mid-century modern design with contemporary comfort. The space showcases premium materials, thoughtful details, and a seamless connection between indoor and outdoor living. Each room is carefully curated to create an unforgettable stay experience.",
     amenities: [

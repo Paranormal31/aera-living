@@ -2,7 +2,7 @@ import TransformationCard from "@/components/TransformationCard";
 
 export default function Transformations() {
   return (
-    <section className="bg-[#faf9f7] py-32">
+    <section id="transformations" className="bg-[#faf9f7] py-32">
       <div className="max-w-7xl mx-auto px-6 text-center">
         <h2 className="text-4xl md:text-5xl font-serif text-neutral-900">
           Transformations
