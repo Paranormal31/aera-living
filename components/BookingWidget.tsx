@@ -172,6 +172,25 @@ export default function BookingWidget({
     }
   };
 
+  const formatDateForMessage = (date: Date) =>
+    date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+
+  const handleCheckAvailability = () => {
+    if (!checkIn || !checkOut || dateWarning) return;
+    const message = [
+      "Hi! I want to check availability.",
+      `Check-in: ${formatDateForMessage(checkIn)}`,
+      `Check-out: ${formatDateForMessage(checkOut)}`,
+      `Guests: ${guests}`,
+    ].join("\n");
+    const url = `https://wa.me/918544337974?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank");
+  };
+
 
   const calendarDays = getCalendarDays();
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -357,6 +376,8 @@ export default function BookingWidget({
 
         {/* Check Availability Button */}
         <button
+          type="button"
+          onClick={handleCheckAvailability}
           className="w-full bg-foreground text-white py-4 rounded-lg font-medium hover:bg-foreground/90 transition-colors duration-200 mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={!checkIn || !checkOut || !!dateWarning}
         >
