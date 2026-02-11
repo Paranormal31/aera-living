@@ -281,6 +281,11 @@ const propertyData: Record<string, any> = {
       },
     ],
     bookedDates: [],
+    map: {
+      title: "The Retro Den – AERA Living",
+      link: "https://www.google.com/maps/place/The+Retro+Den+%E2%80%93+AERA+Living/@30.299096,78.0299097,17z/data=!3m1!4b1!4m6!3m5!1s0x3909299dafd04799:0x1740e73e948e47c0!8m2!3d30.299096!4d78.0299097!16s%2Fg%2F11ywbxt694?hl=en&entry=ttu&g_ep=EgoyMDI2MDIwOS4wIKXMDSoASAFQAw%3D%3D",
+      embed: "https://www.google.com/maps?q=30.299096,78.0299097&z=16&output=embed",
+    },
   },
   "doons-den": {
     name: "Doon's Den",
@@ -518,6 +523,12 @@ const propertyData: Record<string, any> = {
       },
     ],
     bookedDates: [],
+    map: {
+      title: "Doon's Den – AERA Living",
+      link: "https://www.google.com/maps?hl=en&gl=in&um=1&ie=UTF-8&fb=1&sa=X&ftid=0x3908d5775cebf083:0x97701f5a5586f717",
+      embed:
+        "https://www.google.com/maps?q=Doon%27s%20Den%20AERA%20Living%20Dehradun&z=16&output=embed",
+    },
   },
 };
 
@@ -632,6 +643,34 @@ export default async function LocationPage({ params }: Props) {
               sections={property.amenitiesDetailed}
               simpleAmenities={property.amenities}
             />
+
+            {/* Location */}
+            <div>
+              <h2 className="text-2xl font-['Cormorant'] font-semibold text-foreground mb-4">
+                Location
+              </h2>
+              <a
+                href={property.map?.link}
+                target="_blank"
+                rel="noreferrer"
+                className="block border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition"
+                aria-label={`Open map for ${property.name}`}
+              >
+                <div className="relative w-full h-72">
+                  <iframe
+                    title={`${property.name} map`}
+                    src={property.map?.embed}
+                    className="w-full h-full"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    style={{ pointerEvents: "none" }}
+                  />
+                </div>
+                <div className="px-5 py-4 text-gray-800 font-medium">
+                  {property.map?.title}
+                </div>
+              </a>
+            </div>
           </div>
 
           {/* Right Column - Booking Widget */}
