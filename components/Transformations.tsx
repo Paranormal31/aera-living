@@ -16,24 +16,24 @@ export default function Transformations() {
 
       <div className="mt-24 space-y-24">
         <TransformationCard
-          beforeImage="/transformations/before-1.jpg"
-          afterImage="/transformations/after-1.jpg"
-          title="Coastal Bedroom Transformation"
-          description="From dated to serene minimalism"
+          beforeImage="/transformations/before-1.jpeg"
+          afterImage="/transformations/after-1.jpeg"
+          title="Kitchen Transformation"
+          description="From cluttered to clean, efficient flow"
         />
 
         <TransformationCard
-          beforeImage="/transformations/before-2.jpg"
-          afterImage="/transformations/after-2.jpg"
-          title="Urban Living Room Redesign"
-          description="A warm, modern space designed for everyday living"
+          beforeImage="/transformations/before-2.jpeg"
+          afterImage="/transformations/after-2.jpeg"
+          title="Living Room Redesign"
+          description="A warm, modern space for everyday living"
         />
 
         <TransformationCard
-          beforeImage="/transformations/before-3.jpg"
-          afterImage="/transformations/after-3.jpg"
-          title="Minimalist Kitchen Upgrade"
-          description="Clean lines, improved functionality, timeless appeal"
+          beforeImage="/transformations/before-3.jpeg"
+          afterImage="/transformations/after-3.jpeg"
+          title="Bedroom Refresh"
+          description="A calm retreat with soft textures"
         />
       </div>
     </section>
