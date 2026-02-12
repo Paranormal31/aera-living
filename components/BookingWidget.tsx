@@ -172,6 +172,36 @@ export default function BookingWidget({
     }
   };
 
+  const getNightsCount = () => {
+    if (!checkIn || !checkOut) return 0;
+    const start = new Date(checkIn);
+    const end = new Date(checkOut);
+    const diffMs = end.getTime() - start.getTime();
+    return Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
+  };
+
+  const nightsCount = getNightsCount();
+  const totalCost = nightsCount * price;
+
+  const formatDateForMessage = (date: Date) =>
+    date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+
+  const handleCheckAvailability = () => {
+    if (!checkIn || !checkOut || dateWarning) return;
+    const message = [
+      "Hi! I want to check availability.",
+      `Check-in: ${formatDateForMessage(checkIn)}`,
+      `Check-out: ${formatDateForMessage(checkOut)}`,
+      `Guests: ${guests}`,
+    ].join("\n");
+    const url = `https://wa.me/918544337974?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank");
+  };
+
 
   const calendarDays = getCalendarDays();
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -355,8 +385,23 @@ export default function BookingWidget({
           </div>
         </div>
 
+        {/* Total Cost */}
+        <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+          <div className="flex items-center justify-between text-sm text-gray-600">
+            <span>Total for {nightsCount} {nightsCount === 1 ? "night" : "nights"}</span>
+    <span className="font-semibold text-gray-900">
+              ₹{totalCost.toLocaleString("en-IN")}
+            </span>
+          </div>
+          <div className="mt-1 text-xs text-gray-500">
+            {guests} {guests === 1 ? "guest" : "guests"}
+          </div>
+        </div>
+
         {/* Check Availability Button */}
         <button
+          type="button"
+          onClick={handleCheckAvailability}
           className="w-full bg-foreground text-white py-4 rounded-lg font-medium hover:bg-foreground/90 transition-colors duration-200 mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={!checkIn || !checkOut || !!dateWarning}
         >
