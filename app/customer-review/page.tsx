@@ -1,127 +1,77 @@
-"use client";
+const AIRBNB_REVIEW_URL =
+  "https://www.airbnb.co.in/rooms/1348558040063059763?search_mode=regular_search&adults=1&check_in=2026-02-16&check_out=2026-02-21&children=0&infants=0&pets=0&source_impression_id=p3_1770881131_P3OwD4VCIb4hRRlH&previous_page_section_name=1000&federated_search_id=c4e55db4-af29-41f1-858b-0d796d07bc2d&scroll_to_review=1584600739553119948";
+const GOOGLE_REVIEW_URL =
+  "https://www.google.com/maps/place/Doon%E2%80%99s+Den+%7C+Curated+Stay+by+AERA+Living/@30.3705397,77.6741649,11z/data=!4m15!1m2!2m1!1sdoons+den!3m11!1s0x3908d5775cebf083:0x97701f5a5586f717!5m2!4m1!1i2!8m2!3d30.3705397!4d77.9790355!9m1!1b1!15sCglkb29ucyBkZW6SARJwcml2YXRlX2d1ZXN0X3Jvb23gAQA!16s%2Fg%2F11yn7hprk2?entry=ttu&g_ep=EgoyMDI2MDIwOS4wIKXMDSoASAFQAw%3D%3D";
+const GOOGLE_WRITE_REVIEW_URL =
+  "https://search.google.com/local/writereview?placeid=ChIJg_DrXHfVCjkRF_eGVVofcJc";
 
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
-
-type Review = {
-  id: string;
+type FeaturedReview = {
   name: string;
-  rating: number;
+  yearsOnAirbnb: string;
+  monthYear: string;
   message: string;
-  photoDataUrl?: string | null;
-  createdAt: string;
-  email: string;
 };
 
-const STORAGE_KEY = "aeraLivingReviews";
-const AUTH_KEY = "aeraLivingReviewAuth";
-
-const readFileAsDataUrl = (file: File) =>
-  new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(String(reader.result));
-    reader.onerror = () => reject(new Error("Failed to read file."));
-    reader.readAsDataURL(file);
-  });
+const FEATURED_REVIEWS: FeaturedReview[] = [
+  {
+    name: "Vandan",
+    yearsOnAirbnb: "4 months on Airbnb",
+    monthYear: "January 2026",
+    message:
+      "\"Excellent value for money. The property is well-maintained, the staff is friendly,It's rare to find this level of comfort at such an affordable price point. Definitely exceeded my expectations!\"",
+  },
+  {
+    name: "Kaustubh",
+    yearsOnAirbnb: "1 year on Airbnb",
+    monthYear: "December 2025",
+    message:
+      "We had a wonderful stay here for 2 days and honestly didn't feel like leaving. The hospitality was truly heartwarming - the hosts were kind, attentive, and always available whenever we needed anything, yet they respected our privacy completely.\nThe interiors are beautifully done, with a perfect blend of comfort and aesthetics. Every corner feels thoughtfully designed, clean, and welcoming, making the place feel more like a cozy home than a rental. The ambience is calm and relaxing, exactly what we were looking for.\nOverall, it was a peaceful, comfortable, and memorable experience. Highly recommend this place to anyone looking for a well-maintained stay with great hospitality. Would definitely love to come back again!",
+  },
+  {
+    name: "Sourish",
+    yearsOnAirbnb: "3 years on Airbnb",
+    monthYear: "June 2025",
+    message:
+      "It's a very nice and cozy place. Very beautiful furnished and decorated interiors with helpful caretakers and responsive owner. The place was far off from the city and peaceful and yet food delivery and blinkit were available. It takes a little longer to book cabs but eventually we got a ride everytime. Overall, a very nice stay and definitely recommended if you want some peaceful and an off beat stay!",
+  },
+  {
+    name: "Sneha",
+    yearsOnAirbnb: "3 years on Airbnb",
+    monthYear: "May 2025",
+    message:
+      "I had a wonderful stay at this Airbnb! The place was cozy, very well-maintained, and offered a stunning view that made the experience even more enjoyable. Ekaagra was a fantastic host-responsive, friendly, and ensured everything was perfect for my stay. Highly recommended and would definitely love to return!",
+  },
+  {
+    name: "Karan",
+    yearsOnAirbnb: "2 years on Airbnb",
+    monthYear: "October 2025",
+    message:
+      "Artistically done up apartment. Has all the amenities. Quiet area with nice views. Just 5 minutes from the Doon International school campus at Riverside.",
+  },
+  {
+    name: "Pihu",
+    yearsOnAirbnb: "11 months on Airbnb",
+    monthYear: "June 2025",
+    message:
+      "\"I recently stayed at Doon's Den in Dehradun with my friends during our all-women's trip to Chakrata and other destinations. The Airbnb exceeded our expectations! The bedrooms, washrooms, and kitchen were well-maintained and fully equipped. If you're looking for a serene stay in Dehradun, I highly recommend Doon's Den for a peaceful retreat!\"",
+  },
+  {
+    name: "Anoop",
+    yearsOnAirbnb: "5 years on Airbnb",
+    monthYear: "April 2025",
+    message:
+      "our stay at the bnb was very comfortable, and easy. we were looking for a place to chill out on the weekend, and doon's den was a perfect find. every penny spent here is worth it!",
+  },
+  {
+    name: "Deepanshu",
+    yearsOnAirbnb: "4 years on Airbnb",
+    monthYear: "March 2025",
+    message:
+      "This Airbnb flat was absolutely perfect! It's cozy, stylish, and has such a warm, inviting atmosphere. The decor is beautiful, making it a great place to relax and unwind. A fantastic spot to chill and feel right at home. Highly recommend!",
+  },
+];
 
 export default function CustomerReviewPage() {
-  const [reviews, setReviews] = useState<Review[]>([]);
-  const [email, setEmail] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [name, setName] = useState("");
-  const [rating, setRating] = useState(5);
-  const [message, setMessage] = useState("");
-  const [photo, setPhoto] = useState<File | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-  useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (!stored) return;
-    try {
-      const parsed = JSON.parse(stored) as Review[];
-      if (Array.isArray(parsed)) setReviews(parsed);
-    } catch {
-      // Ignore malformed storage
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
-  }, [reviews]);
-
-  useEffect(() => {
-    const storedAuth = localStorage.getItem(AUTH_KEY);
-    if (!storedAuth) return;
-    try {
-      const parsed = JSON.parse(storedAuth) as { email?: string };
-      if (parsed?.email) {
-        setEmail(parsed.email);
-        setIsLoggedIn(true);
-      }
-    } catch {
-      // Ignore malformed storage
-    }
-  }, []);
-
-  const sortedReviews = useMemo(() => {
-    return [...reviews].sort(
-      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
-  }, [reviews]);
-
-  const handleLogin = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const trimmed = email.trim();
-    if (!trimmed) return;
-    localStorage.setItem(AUTH_KEY, JSON.stringify({ email: trimmed }));
-    setEmail(trimmed);
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem(AUTH_KEY);
-    setIsLoggedIn(false);
-    setEmail("");
-  };
-
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!name.trim() || !message.trim()) return;
-
-    setIsSubmitting(true);
-    try {
-      const photoDataUrl = photo ? await readFileAsDataUrl(photo) : null;
-      const id =
-        typeof crypto !== "undefined" && "randomUUID" in crypto
-          ? crypto.randomUUID()
-          : String(Date.now());
-      const newReview: Review = {
-        id,
-        name: name.trim(),
-        email: email.trim(),
-        rating,
-        message: message.trim(),
-        photoDataUrl,
-        createdAt: new Date().toISOString(),
-      };
-
-      setReviews((prev) => [newReview, ...prev]);
-      setName("");
-      setRating(5);
-      setMessage("");
-      setPhoto(null);
-      if (fileInputRef.current) fileInputRef.current.value = "";
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleDelete = (id: string) => {
-    setReviews((prev) => prev.filter((review) => review.id !== id));
-    setPendingDeleteId(null);
-  };
-
   return (
     <div className="min-h-screen bg-white">
       <section className="max-w-6xl mx-auto px-6 pt-32 pb-16">
@@ -130,219 +80,80 @@ export default function CustomerReviewPage() {
             Customer Review
           </h1>
           <p className="mt-4 text-muted-foreground text-lg leading-relaxed">
-            Share your experience with AeraLiving. Add a short review and an
-            optional photo, and your feedback will show up below.
+            Verified guest feedback from our Airbnb listing.
           </p>
         </div>
 
         <div className="mt-12 grid grid-cols-1 lg:grid-cols-5 gap-10">
           <div className="lg:col-span-2 rounded-2xl border border-border p-6 shadow-sm">
-            <h2 className="text-lg font-medium text-foreground">
-              Post a Review
-            </h2>
+            <h2 className="text-lg font-medium text-foreground">Post a Review</h2>
 
-            {!isLoggedIn ? (
-              <form onSubmit={handleLogin} className="mt-6">
-                <label className="block text-sm font-medium text-foreground">
-                  Email
-                </label>
-                <input
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  placeholder="you@example.com"
-                  type="email"
-                  className="mt-2 w-full rounded-xl border border-border px-4 py-2.5 text-sm"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="mt-4 w-full rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-medium text-white shadow-md transition-all hover:shadow-lg"
-                >
-                  Login to Post
-                </button>
-              </form>
-            ) : (
-              <>
-                <div className="mt-6 rounded-xl border border-border bg-neutral-50 px-4 py-3 text-sm text-muted-foreground flex items-center justify-between">
-                  <span>Logged in as {email}</span>
-                  <button
-                    type="button"
-                    onClick={handleLogout}
-                    className="text-xs font-medium text-foreground hover:underline"
-                  >
-                    Log out
-                  </button>
-                </div>
+            <div className="mt-6 space-y-4 text-sm text-muted-foreground">
+              <p>
+                Share your experience directly on Google.
+              </p>
+              <p>
+                Use the button below to open the Write a review form.
+              </p>
+            </div>
 
-                <form onSubmit={handleSubmit} className="mt-6">
-                  <label className="block text-sm font-medium text-foreground">
-                    Name
-                  </label>
-                  <input
-                    value={name}
-                    onChange={(event) => setName(event.target.value)}
-                    placeholder="Your name"
-                    className="mt-2 w-full rounded-xl border border-border px-4 py-2.5 text-sm"
-                    required
-                  />
-
-                  <label className="mt-5 block text-sm font-medium text-foreground">
-                    Rating
-                  </label>
-                  <div
-                    className="mt-2 flex items-center gap-2"
-                    role="radiogroup"
-                    aria-label="Rating"
-                  >
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <button
-                        key={star}
-                        type="button"
-                        role="radio"
-                        aria-checked={rating === star}
-                        onClick={() => setRating(star)}
-                        className="text-2xl leading-none text-foreground transition-transform hover:scale-110"
-                      >
-                        {star <= rating ? "\u2605" : "\u2606"}
-                      </button>
-                    ))}
-                  </div>
-
-                  <label className="mt-5 block text-sm font-medium text-foreground">
-                    Review
-                  </label>
-                  <textarea
-                    value={message}
-                    onChange={(event) => setMessage(event.target.value)}
-                    placeholder="Share your experience..."
-                    rows={5}
-                    className="mt-2 w-full rounded-xl border border-border px-4 py-2.5 text-sm"
-                    required
-                  />
-
-                  <label className="mt-5 block text-sm font-medium text-foreground">
-                    Photo (optional)
-                  </label>
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    onChange={(event) =>
-                      setPhoto(event.target.files ? event.target.files[0] : null)
-                    }
-                    className="mt-2 w-full text-sm"
-                  />
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="mt-6 w-full rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-medium text-white shadow-md transition-all hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-70"
-                  >
-                    {isSubmitting ? "Posting..." : "Post Review"}
-                  </button>
-                </form>
-              </>
-            )}
+            <a
+              href={GOOGLE_WRITE_REVIEW_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-medium text-white shadow-md transition-all hover:shadow-lg"
+            >
+              Leave a Review
+            </a>
           </div>
 
           <div className="lg:col-span-3">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-medium text-foreground">
-                Recent Reviews
-              </h2>
-              <span className="text-sm text-muted-foreground">
-                {sortedReviews.length} total
-              </span>
-            </div>
-
-            {sortedReviews.length === 0 ? (
-              <div className="mt-6 rounded-2xl border border-dashed border-border p-8 text-sm text-muted-foreground">
-                No reviews yet. Be the first to share your experience.
+            <div className="rounded-2xl border border-border p-6 shadow-sm">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h2 className="text-lg font-medium text-foreground">
+                    Featured Reviews
+                  </h2>
+                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                    Handpicked guest feedback from Airbnb stays.
+                  </p>
+                </div>
+                <a
+                  href={AIRBNB_REVIEW_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="shrink-0 rounded-full border border-border px-4 py-2 text-xs font-medium text-foreground"
+                >
+                  Open Listing
+                </a>
               </div>
-            ) : (
-              <div className="mt-6 grid grid-cols-1 gap-6">
-                {sortedReviews.map((review) => (
-                  <article
-                    key={review.id}
-                    className="rounded-2xl border border-border p-6 shadow-sm"
-                  >
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                      <div>
-                        <p className="text-base font-medium text-foreground">
-                          {review.name}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          {new Date(review.createdAt).toLocaleDateString()}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          {review.email}
-                        </p>
+
+              <div className="mt-6 max-h-[75vh] space-y-6 overflow-y-auto pr-2">
+                {FEATURED_REVIEWS.map((review) => (
+                  <article key={`${review.name}-${review.monthYear}`} className="rounded-xl border border-border p-5">
+                    <div className="flex items-start gap-4">
+                      <div className="h-14 w-14 shrink-0 rounded-full bg-neutral-200 text-center text-xl font-semibold leading-[56px] text-foreground">
+                        {review.name.charAt(0)}
                       </div>
-                      <div className="flex items-center gap-3">
-                        <span className="text-sm font-medium text-foreground">
-                          Rating: {review.rating} / 5
-                        </span>
-                        {isLoggedIn && review.email === email ? (
-                          <button
-                            type="button"
-                            onClick={() => setPendingDeleteId(review.id)}
-                            className="text-xs font-medium text-foreground hover:underline"
-                          >
-                            Delete
-                          </button>
-                        ) : null}
+                      <div>
+                        <h3 className="text-2xl font-semibold text-foreground">{review.name}</h3>
+                        <p className="text-sm text-muted-foreground">{review.yearsOnAirbnb}</p>
                       </div>
                     </div>
 
-                    <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                    <p className="mt-4 text-xl font-semibold text-foreground">
+                      ***** <span className="text-base">. {review.monthYear}</span>
+                    </p>
+                    <p className="mt-3 whitespace-pre-line text-lg leading-relaxed text-foreground">
                       {review.message}
                     </p>
-
-                    {review.photoDataUrl ? (
-                      <div className="mt-4 overflow-hidden rounded-xl border border-border">
-                        <img
-                          src={review.photoDataUrl}
-                          alt={`${review.name} review`}
-                          className="h-56 w-full object-cover"
-                        />
-                      </div>
-                    ) : null}
                   </article>
                 ))}
               </div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {pendingDeleteId ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
-          <div className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-xl">
-            <h3 className="text-lg font-medium text-foreground">
-              Sure, you want to delete?
-            </h3>
-            <p className="mt-2 text-sm text-muted-foreground">
-              This review will be permanently removed.
-            </p>
-            <div className="mt-6 flex items-center gap-3">
-              <button
-                type="button"
-                onClick={() => handleDelete(pendingDeleteId)}
-                className="flex-1 rounded-full bg-neutral-900 px-4 py-2.5 text-sm font-medium text-white shadow-md transition-all hover:shadow-lg"
-              >
-                Delete
-              </button>
-              <button
-                type="button"
-                onClick={() => setPendingDeleteId(null)}
-                className="flex-1 rounded-full border border-border px-4 py-2.5 text-sm font-medium text-foreground"
-              >
-                Cancel
-              </button>
             </div>
           </div>
         </div>
-      ) : null}
+      </section>
     </div>
   );
 }
