@@ -41,7 +41,7 @@ export default function Metrics() {
               </div>
 
               {/* Value */}
-              <div className="text-[32px] font-['Cormorant'] font-semibold tracking-tight text-foreground">
+              <div className="text-[32px] font-['Georgia',_serif] font-medium tracking-tight text-black">
                 {item.value}
               </div>
 

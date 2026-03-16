@@ -13,9 +13,9 @@ export default function InteriorServices() {
           </h2>
 
           <p className="mt-6 text-neutral-600 max-w-xl leading-relaxed">
-            Our award-winning design team creates stunning, nature-inspired
+            Our design team creates stunning, nature-inspired
             interiors that blend luxury with tranquility. From concept to
-            completion, we craft spaces that tell your story.
+            completion, we craft spaces that reflect your story while elevating everyday living.
           </p>
 
           <ul className="mt-10 space-y-6">
