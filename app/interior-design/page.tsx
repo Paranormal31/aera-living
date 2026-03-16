@@ -18,9 +18,13 @@ export default function InteriorDesignPage() {
               The AeraLiving Effect
             </h1>
             <p className="mt-6 max-w-xl text-muted-foreground text-lg leading-relaxed">
-              Our design team brings your vision to life with thoughtfully
-              crafted interiors that blend elegance, comfort, and timeless
-              style.
+              Our design team brings your vision to life through thoughtful,
+              refined interiors that balance luxury, comfort, and timeless
+              design. Every space is carefully crafted with attention to
+              detail, elegant materials, and a clear sense of atmosphere. From
+              the initial concept to the final finishing touches, each element
+              is considered to create interiors that feel sophisticated,
+              inviting, and truly distinctive.
             </p>
             {/* CTA placeholder */}
             <div className="mt-10 flex gap-4">
