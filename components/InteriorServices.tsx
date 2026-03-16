@@ -25,8 +25,8 @@ export default function InteriorServices() {
                 desc: "Complete transformation from planning to installation",
               },
               {
-                title: "Premium Materials",
-                desc: "Sustainable, high-quality materials sourced globally",
+                title: "Quality Materials",
+                desc: "Durable, high-quality materials chosen with care and sourced sustainably",
               },
               {
                 title: "Signature Aesthetic",

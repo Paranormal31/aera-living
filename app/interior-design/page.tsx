@@ -18,9 +18,9 @@ export default function InteriorDesignPage() {
               The AeraLiving Effect
             </h1>
             <p className="mt-6 max-w-xl text-muted-foreground text-lg leading-relaxed">
-              Our award-winning design team brings your vision to life with
-              nature-inspired, minimalist aesthetics that create calm,
-              sophisticated spaces.
+              Our design team brings your vision to life with thoughtfully
+              crafted interiors that blend elegance, comfort, and timeless
+              style.
             </p>
             {/* CTA placeholder */}
             <div className="mt-10 flex gap-4">
