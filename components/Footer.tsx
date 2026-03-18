@@ -80,7 +80,9 @@ export default function Footer() {
             <p className="mb-4 font-medium">SUPPORT</p>
             <ul className="space-y-3 text-sm text-neutral-400">
               <li>Contact Us</li>
-              <li>FAQ</li>
+              <li>
+                <Link href="/faq">FAQ</Link>
+              </li>
               <li>Privacy Policy</li>
               <li>Terms of Service</li>
             </ul>
