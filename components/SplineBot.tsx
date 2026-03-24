@@ -105,7 +105,8 @@ export default function SplineBot() {
           debug: errorPayload?.debug,
         });
 
-        const fallbackText = "Sorry, I could not respond right now. Please try again in a moment.";
+        const fallbackText =
+          "Sorry I am currently under developement, stay tuned tho.\n\nIn the meantime, contact Guest Operations Head: Achal Pookie: Contact: +91 8234079482, aeraliving.llp@gmail.com";
         setMessages((prev) => [...prev, { role: "assistant", content: fallbackText }]);
         return;
       }
