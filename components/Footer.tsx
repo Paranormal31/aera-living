@@ -110,7 +110,7 @@ export default function Footer() {
                 <Mail />
               </button>
             </div>
-            <p className="text-sm text-neutral-400">hello@aeraliving.com</p>
+            <p className="text-sm text-neutral-400">aeraliving.llp@gmail.com</p>
           </div>
         </div>
 

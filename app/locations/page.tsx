@@ -6,7 +6,7 @@ const locations = [
     name: "Retro Den",
     slug: "retro-den",
     city: "Dehradun, India",
-    price: 10000,
+    price: "Starting from ₹2,500",
     rating: 5,
     reviews: "New Launch",
     bedrooms: 4,
@@ -19,7 +19,7 @@ const locations = [
     name: "Doon’s Den",
     slug: "doons-den",
     city: "Dehradun, India",
-    price: 3400,
+    price: "₹3,400",
     rating: 4.77,
     reviews: 13,
     bedrooms: 2,
@@ -99,10 +99,7 @@ export default function LocationsPage() {
               </div>
 
               <div className="flex items-center justify-between mt-6">
-                <p className="text-xl font-semibold">
-                  ₹{loc.price}
-                  <span className="text-sm text-gray-500"> / night</span>
-                </p>
+                <p className="text-xl font-semibold">{loc.price}</p>
 
                 <span className="flex items-center gap-2 text-sm font-medium">
                   View Details →

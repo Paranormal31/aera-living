@@ -1,18 +1,14 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import GoogleReviewForm, { type SavedReview } from "@/components/GoogleReviewForm";
+
 const AIRBNB_REVIEW_URL =
   "https://www.airbnb.co.in/rooms/1348558040063059763?search_mode=regular_search&adults=1&check_in=2026-02-16&check_out=2026-02-21&children=0&infants=0&pets=0&source_impression_id=p3_1770881131_P3OwD4VCIb4hRRlH&previous_page_section_name=1000&federated_search_id=c4e55db4-af29-41f1-858b-0d796d07bc2d&scroll_to_review=1584600739553119948";
-const GOOGLE_REVIEW_URL =
-  "https://www.google.com/maps/place/Doon%E2%80%99s+Den+%7C+Curated+Stay+by+AERA+Living/@30.3705397,77.6741649,11z/data=!4m15!1m2!2m1!1sdoons+den!3m11!1s0x3908d5775cebf083:0x97701f5a5586f717!5m2!4m1!1i2!8m2!3d30.3705397!4d77.9790355!9m1!1b1!15sCglkb29ucyBkZW6SARJwcml2YXRlX2d1ZXN0X3Jvb23gAQA!16s%2Fg%2F11yn7hprk2?entry=ttu&g_ep=EgoyMDI2MDIwOS4wIKXMDSoASAFQAw%3D%3D";
-const GOOGLE_WRITE_REVIEW_URL =
-  "https://search.google.com/local/writereview?placeid=ChIJg_DrXHfVCjkRF_eGVVofcJc";
 
-type FeaturedReview = {
-  name: string;
-  yearsOnAirbnb: string;
-  monthYear: string;
-  message: string;
-};
+type FeaturedReview = SavedReview;
 
-const FEATURED_REVIEWS: FeaturedReview[] = [
+const INITIAL_FEATURED_REVIEWS: FeaturedReview[] = [
   {
     name: "Vandan",
     yearsOnAirbnb: "4 months on Airbnb",
@@ -72,6 +68,64 @@ const FEATURED_REVIEWS: FeaturedReview[] = [
 ];
 
 export default function CustomerReviewPage() {
+  const [featuredReviews, setFeaturedReviews] = useState<FeaturedReview[]>(INITIAL_FEATURED_REVIEWS);
+  const [loadingReviews, setLoadingReviews] = useState(true);
+  const [loadError, setLoadError] = useState("");
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadReviews() {
+      try {
+        const response = await fetch("/api/customer-reviews", { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error("Failed to load reviews");
+        }
+
+        const data = (await response.json()) as { reviews?: FeaturedReview[] };
+        if (!cancelled && data.reviews?.length) {
+          setFeaturedReviews((current) => {
+            const merged = [...current];
+            const seen = new Set(current.map((review) => `${review.name}-${review.monthYear}-${review.message}`));
+
+            for (const review of data.reviews ?? []) {
+              const key = `${review.name}-${review.monthYear}-${review.message}`;
+              if (!seen.has(key)) {
+                merged.unshift({
+                  name: review.name,
+                  yearsOnAirbnb: review.yearsOnAirbnb,
+                  monthYear: review.monthYear,
+                  message: review.message,
+                });
+                seen.add(key);
+              }
+            }
+
+            return merged;
+          });
+        }
+      } catch {
+        if (!cancelled) {
+          setLoadError("Saved reviews could not be loaded right now.");
+        }
+      } finally {
+        if (!cancelled) {
+          setLoadingReviews(false);
+        }
+      }
+    }
+
+    loadReviews();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const handleSavedReview = (review: FeaturedReview) => {
+    setFeaturedReviews((current) => [review, ...current]);
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <section className="max-w-6xl mx-auto px-6 pt-32 pb-16">
@@ -85,35 +139,15 @@ export default function CustomerReviewPage() {
         </div>
 
         <div className="mt-12 grid grid-cols-1 lg:grid-cols-5 gap-10">
-          <div className="lg:col-span-2 rounded-2xl border border-border p-6 shadow-sm">
-            <h2 className="text-lg font-medium text-foreground">Post a Review</h2>
-
-            <div className="mt-6 space-y-4 text-sm text-muted-foreground">
-              <p>
-                Share your experience directly on Google.
-              </p>
-              <p>
-                Use the button below to open the Write a review form.
-              </p>
-            </div>
-
-            <a
-              href={GOOGLE_WRITE_REVIEW_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-medium text-white shadow-md transition-all hover:shadow-lg"
-            >
-              Leave a Review
-            </a>
+          <div className="lg:col-span-2">
+            <GoogleReviewForm onSaved={handleSavedReview} />
           </div>
 
           <div className="lg:col-span-3">
             <div className="rounded-2xl border border-border p-6 shadow-sm">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h2 className="text-lg font-medium text-foreground">
-                    Featured Reviews
-                  </h2>
+                  <h2 className="text-lg font-medium text-foreground">Featured Reviews</h2>
                   <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
                     Handpicked guest feedback from Airbnb stays.
                   </p>
@@ -129,8 +163,16 @@ export default function CustomerReviewPage() {
               </div>
 
               <div className="mt-6 max-h-[75vh] space-y-6 overflow-y-auto pr-2">
-                {FEATURED_REVIEWS.map((review) => (
-                  <article key={`${review.name}-${review.monthYear}`} className="rounded-xl border border-border p-5">
+                {loadError && (
+                  <p className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+                    {loadError}
+                  </p>
+                )}
+                {loadingReviews && (
+                  <p className="text-sm text-muted-foreground">Loading saved reviews...</p>
+                )}
+                {featuredReviews.map((review) => (
+                  <article key={`${review.name}-${review.monthYear}-${review.message}`} className="rounded-xl border border-border p-5">
                     <div className="flex items-start gap-4">
                       <div className="h-14 w-14 shrink-0 rounded-full bg-neutral-200 text-center text-xl font-semibold leading-[56px] text-foreground">
                         {review.name.charAt(0)}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Navigation } from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SplineBot from "@/components/SplineBot";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body>
         {/* Fixed Navigation */}
         <Navigation />
+        <SplineBot />
 
         {/* Page Content */}
         <main className="pt-24">{children}</main>

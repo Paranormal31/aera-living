@@ -18,6 +18,7 @@ const propertyData: Record<string, any> = {
     guests: 12,
     bathrooms: 3,
     price: 10000,
+    pricePerBedroom: 2500,
     rating: 4.9,
     reviews: "New Launch",
     description:
@@ -680,6 +681,8 @@ export default async function LocationPage({ params }: Props) {
               reviews={property.reviews}
               maxGuests={property.guests}
               bookedDates={property.bookedDates || []}
+              maxBedrooms={property.bedrooms}
+              pricePerBedroom={property.pricePerBedroom}
             />
           </div>
         </div>

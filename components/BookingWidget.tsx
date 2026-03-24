@@ -8,6 +8,8 @@ type BookingWidgetProps = {
   reviews: number | string;
   maxGuests: number;
   bookedDates: string[]; // Array of date strings in YYYY-MM-DD format
+  maxBedrooms?: number;
+  pricePerBedroom?: number;
 };
 
 export default function BookingWidget({
@@ -15,12 +17,17 @@ export default function BookingWidget({
   reviews,
   maxGuests,
   bookedDates,
+  maxBedrooms,
+  pricePerBedroom,
 }: BookingWidgetProps) {
   const [checkIn, setCheckIn] = useState<Date | null>(null);
   const [checkOut, setCheckOut] = useState<Date | null>(null);
   const [guests, setGuests] = useState(1);
+  const [selectedBedrooms, setSelectedBedrooms] = useState(1);
   const [dateWarning, setDateWarning] = useState("");
   const [currentMonth, setCurrentMonth] = useState(new Date());
+
+  const currentPrice = pricePerBedroom ? selectedBedrooms * pricePerBedroom : price;
 
   // Convert booked dates to Date objects for easier comparison
   const bookedDatesSet = useMemo(() => {
@@ -181,7 +188,7 @@ export default function BookingWidget({
   };
 
   const nightsCount = getNightsCount();
-  const totalCost = nightsCount * price;
+  const totalCost = nightsCount * currentPrice;
 
   const formatDateForMessage = (date: Date) =>
     date.toLocaleDateString("en-US", {
@@ -197,8 +204,14 @@ export default function BookingWidget({
       `Check-in: ${formatDateForMessage(checkIn)}`,
       `Check-out: ${formatDateForMessage(checkOut)}`,
       `Guests: ${guests}`,
-    ].join("\n");
-    const url = `https://wa.me/918544337974?text=${encodeURIComponent(message)}`;
+    ];
+    
+    if (pricePerBedroom && maxBedrooms) {
+      message.push(`Bedrooms: ${selectedBedrooms}`);
+      message.push(`Price per bedroom: ₹${pricePerBedroom.toLocaleString("en-IN")}`);
+    }
+
+    const url = `https://wa.me/918544337974?text=${encodeURIComponent(message.join("\n"))}`;
     window.open(url, "_blank");
   };
 
@@ -212,7 +225,7 @@ export default function BookingWidget({
       <div className="mb-6">
         <div className="flex items-baseline gap-2 mb-2">
           <span className="text-3xl font-semibold text-foreground">
-            ₹{price.toLocaleString()}
+            ₹{currentPrice.toLocaleString()}
           </span>
           <span className="text-gray-500">/ night</span>
         </div>
@@ -384,6 +397,38 @@ export default function BookingWidget({
             </button>
           </div>
         </div>
+
+        {/* Bedrooms */}
+        {maxBedrooms && pricePerBedroom && (
+          <div>
+            <label className="block text-xs font-medium text-gray-700 uppercase tracking-wider mb-2">
+              SELECT BEDROOMS
+            </label>
+            <div className="grid grid-cols-4 gap-2">
+              {Array.from({ length: maxBedrooms }, (_, index) => index + 1).map((bedroomCount) => (
+                <button
+                  key={bedroomCount}
+                  type="button"
+                  onClick={() => setSelectedBedrooms(bedroomCount)}
+                  className={`rounded-lg border px-3 py-3 text-sm font-medium transition-colors ${
+                    selectedBedrooms === bedroomCount
+                      ? "border-foreground bg-foreground text-white"
+                      : "border-gray-300 text-gray-700 hover:bg-gray-50"
+                  }`}
+                  aria-label={`Select ${bedroomCount} bedroom${bedroomCount === 1 ? "" : "s"}`}
+                >
+                  {bedroomCount}
+                  <span className="block text-[11px] font-normal mt-1 opacity-90">
+                    {bedroomCount === 1 ? "Bedroom" : "Bedrooms"}
+                  </span>
+                </button>
+              ))}
+            </div>
+            <p className="text-xs text-gray-500 mt-2 text-center">
+              ₹{pricePerBedroom.toLocaleString("en-IN")} per bedroom
+            </p>
+          </div>
+        )}
 
         {/* Total Cost */}
         <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
