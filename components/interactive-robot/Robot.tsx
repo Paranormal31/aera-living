@@ -89,7 +89,7 @@ export function Robot({
     const handlePointerMove = (event: PointerEvent) => {
       const width = window.innerWidth || 1;
       const height = window.innerHeight || 1;
-      const botSize = width >= 640 ? 220 : 180;
+      const botSize = width >= 640 ? 220 : 160;
       const edgeOffset = 16; // matches Tailwind `bottom-4 right-4`
       const botCenterX = width - edgeOffset - botSize / 2;
       const botCenterY = height - edgeOffset - botSize / 2;
@@ -109,6 +109,11 @@ export function Robot({
     };
 
     const handlePointerDown = (event: PointerEvent) => {
+      const target = event.target;
+      if (target instanceof Element && target.closest("[data-chat-panel='true']")) {
+        return;
+      }
+
       const width = window.innerWidth || 1;
       const height = window.innerHeight || 1;
       const isNearBot = event.clientX >= width - 280 && event.clientY >= height - 280;

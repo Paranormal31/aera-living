@@ -156,23 +156,21 @@ export default function SplineBot() {
     <>
       {isMounted && (
         <div
-          className="fixed bottom-4 right-[calc(1rem+12.5rem)] z-[70] w-[320px] max-w-[calc(100vw-13.5rem)] overflow-hidden rounded-2xl border border-white/20 bg-[#0f1724]/95 shadow-2xl backdrop-blur sm:right-[calc(1rem+13rem)] sm:max-w-[380px]"
+          data-chat-panel="true"
+          className="fixed bottom-[calc(1rem+10.5rem)] left-7 right-7 z-[70] overflow-hidden rounded-3xl border border-[#8fb6dc]/25 bg-[#071325] shadow-[0_28px_65px_-28px_rgba(2,10,22,0.92)] sm:bottom-4 sm:left-auto sm:right-[calc(1rem+13rem)] sm:w-[380px]"
           style={{
             animation: isClosing
               ? "blink-chat-exit 220ms ease-in forwards"
               : "blink-chat-enter 220ms ease-out both",
           }}
         >
-          <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
-            <p className="text-sm font-semibold text-white">Blink - The AeraLiving Assistant</p>
-            <button
-              type="button"
-              onClick={closeChat}
-              className="rounded-md px-2 py-1 text-xs text-white/80 hover:bg-white/10"
-            >
-              Close
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={closeChat}
+            className="absolute right-3 top-3 z-10 rounded-full border border-white/15 bg-[#071325]/90 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:border-white/35 hover:bg-white/10"
+          >
+            Close
+          </button>
 
           {CHAT_DEBUG_ENABLED && lastDebug && (
             <div className="border-b border-amber-300/30 bg-amber-400/10 px-4 py-2 text-[11px] text-amber-100">
@@ -185,34 +183,36 @@ export default function SplineBot() {
             </div>
           )}
 
-          <div className="h-72 space-y-3 overflow-y-auto px-4 py-3">
+          <div className="max-h-[42vh] min-h-[230px] space-y-3 overflow-y-auto bg-gradient-to-b from-[#0a1b31]/85 to-[#061020]/85 px-4 pb-4 pt-14 sm:max-h-[420px] sm:min-h-[250px]">
             {messages.map((message, index) => (
               <div
                 key={`${message.role}-${index}`}
-                className={`max-w-[85%] rounded-xl px-3 py-2 text-sm leading-relaxed ${
+                className={`max-w-[88%] rounded-2xl px-3.5 py-2.5 text-[14px] leading-relaxed shadow-lg ${
                   message.role === "user"
-                    ? "ml-auto bg-cyan-500 text-white"
-                    : "mr-auto bg-white/10 text-slate-100"
+                    ? "ml-auto rounded-br-md bg-gradient-to-br from-cyan-400 to-sky-500 text-slate-950"
+                    : "mr-auto rounded-bl-md border border-white/10 bg-white/12 text-slate-100"
                 }`}
               >
                 {message.content}
               </div>
             ))}
-            {isLoading && <p className="text-xs text-white/60">Assistant is typing...</p>}
+            {isLoading && (
+              <p className="text-xs font-medium text-cyan-100/80">Blink is typing...</p>
+            )}
           </div>
 
-          <form onSubmit={handleSubmit} className="border-t border-white/10 p-3">
-            <div className="flex gap-2">
+          <form onSubmit={handleSubmit} className="border-t border-white/10 bg-[#050d1b]/80 p-3">
+            <div className="flex items-center gap-2 rounded-2xl border border-white/12 bg-white/5 p-1.5">
               <input
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
-                placeholder="Ask about locations, stays, pricing..."
-                className="flex-1 rounded-lg border border-white/15 bg-black/30 px-3 py-2 text-sm text-white placeholder:text-white/40 outline-none focus:border-cyan-400"
+                placeholder="Ask about stays, pricing, or locations..."
+                className="flex-1 bg-transparent px-2.5 py-2 text-sm text-white placeholder:text-slate-400 outline-none"
               />
               <button
                 type="submit"
                 disabled={isLoading}
-                className="rounded-lg bg-cyan-500 px-3 py-2 text-sm font-medium text-white disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-xl bg-gradient-to-br from-cyan-400 to-sky-500 px-3.5 py-2 text-xs font-semibold uppercase tracking-wide text-slate-950 transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 Send
               </button>
@@ -221,7 +221,7 @@ export default function SplineBot() {
         </div>
       )}
 
-      <div className="fixed bottom-4 right-4 z-[60] pointer-events-auto h-[180px] w-[180px] sm:h-[220px] sm:w-[220px]">
+      <div className="fixed bottom-4 right-4 z-[60] pointer-events-auto h-[160px] w-[160px] sm:h-[220px] sm:w-[220px]">
         <RobotScene
           robotProps={{
             dialogueEnabled: false,
