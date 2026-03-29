@@ -109,8 +109,8 @@ export function Robot({
     };
 
     const handlePointerDown = (event: PointerEvent) => {
-      const target = event.target;
-      if (target instanceof Element && target.closest("[data-chat-panel='true']")) {
+      const target = event.target as { closest?: (selector: string) => Element | null } | null;
+      if (target?.closest?.("[data-chat-panel='true']")) {
         return;
       }
 
