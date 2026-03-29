@@ -207,12 +207,12 @@ export default function SplineBot() {
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
                 placeholder="Ask about stays, pricing, or locations..."
-                className="flex-1 bg-transparent px-2.5 py-2 text-sm text-white placeholder:text-slate-400 outline-none"
+                className="min-w-0 flex-1 bg-transparent px-2.5 py-2 text-sm text-white placeholder:text-slate-400 outline-none"
               />
               <button
                 type="submit"
                 disabled={isLoading}
-                className="rounded-xl bg-gradient-to-br from-cyan-400 to-sky-500 px-3.5 py-2 text-xs font-semibold uppercase tracking-wide text-slate-950 transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
+                className="shrink-0 rounded-xl bg-gradient-to-br from-cyan-400 to-sky-500 px-3.5 py-2 text-xs font-semibold uppercase tracking-wide text-slate-950 transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 Send
               </button>
