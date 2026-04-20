@@ -1,34 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-
-const locations = [
-  {
-    name: "Retro Den",
-    slug: "retro-den",
-    city: "Dehradun, India",
-    price: "Starting from ₹2,500",
-    rating: 5,
-    reviews: "New Launch",
-    bedrooms: 4,
-    guests: 12,
-    bathrooms: 3,
-    image: "/images/retro-den.jpg",
-    tags: ["Hill View", "Cozy", "Central"],
-  },
-  {
-    name: "Doon’s Den",
-    slug: "doons-den",
-    city: "Dehradun, India",
-    price: "₹3,400",
-    rating: 4.77,
-    reviews: 13,
-    bedrooms: 2,
-    guests: 6,
-    bathrooms: 2,
-    image: "/images/doons-den.jpg",
-    tags: ["Spacious", "Modern", "Family Friendly"],
-  },
-];
+import { LOCATION_LISTINGS } from "@/lib/siteContent";
 
 export default function LocationsPage() {
   return (
@@ -45,7 +17,7 @@ export default function LocationsPage() {
 
       {/* Listings */}
       <section className="max-w-6xl mx-auto px-6 space-y-12 pb-24">
-        {locations.map((loc) => (
+        {LOCATION_LISTINGS.map((loc) => (
           <Link
             key={loc.slug}
             href={`/locations/${loc.slug}`}

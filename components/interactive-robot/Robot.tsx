@@ -1,7 +1,7 @@
 "use client";
 
 import { Html, RoundedBox, Sphere } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, type ThreeEvent } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import {
@@ -108,30 +108,7 @@ export function Robot({
       }));
     };
 
-    const handlePointerDown = (event: PointerEvent) => {
-      const target = event.target as { closest?: (selector: string) => Element | null } | null;
-      if (target?.closest?.("[data-chat-panel='true']")) {
-        return;
-      }
-
-      const width = window.innerWidth || 1;
-      const height = window.innerHeight || 1;
-      const isNearBot = event.clientX >= width - 280 && event.clientY >= height - 280;
-
-      if (!isNearBot) {
-        return;
-      }
-
-      clickSpinTarget.current += Math.PI * 2;
-      onBotClick?.();
-      setDebugState((prev) => ({
-        ...prev,
-        clicks: prev.clicks + 1,
-      }));
-    };
-
     document.addEventListener("pointermove", handlePointerMove);
-    document.addEventListener("pointerdown", handlePointerDown);
 
     if (
       enableElectronCursor &&
@@ -165,7 +142,6 @@ export function Robot({
 
         return () => {
           document.removeEventListener("pointermove", handlePointerMove);
-          document.removeEventListener("pointerdown", handlePointerDown);
           ipcRenderer.removeListener(electronCursorChannel, mouseHandler);
         };
       }
@@ -173,9 +149,18 @@ export function Robot({
 
     return () => {
       document.removeEventListener("pointermove", handlePointerMove);
-      document.removeEventListener("pointerdown", handlePointerDown);
     };
   }, [electronCursorChannel, enableElectronCursor, onBotClick]);
+
+  function handleRobotPointerDown(event: ThreeEvent<PointerEvent>) {
+    event.stopPropagation();
+    clickSpinTarget.current += Math.PI * 2;
+    onBotClick?.();
+    setDebugState((prev) => ({
+      ...prev,
+      clicks: prev.clicks + 1,
+    }));
+  }
 
   useFrame((state, delta) => {
     if (!groupRef.current) {
@@ -263,7 +248,7 @@ export function Robot({
 
   return (
     <group position={[0, -1, 0]}>
-      <group ref={groupRef}>
+      <group ref={groupRef} onPointerDown={handleRobotPointerDown}>
         <group position={[0, 0.4, 0]}>
           <RoundedBox args={[2.2, 2.3, 2.2]} radius={0.9} smoothness={4}>
             <meshStandardMaterial color="#0d0d1a" metalness={0.9} roughness={0.1} />

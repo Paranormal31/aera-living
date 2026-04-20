@@ -10,6 +10,9 @@ type ChatLogInput = {
   status: "ok" | "error";
   error?: string;
   model: string;
+  retrievedDocIds?: string[];
+  fallbackUsed?: boolean;
+  confidenceBand?: "low" | "medium" | "high";
 };
 
 const WEBHOOK_URL = process.env.CHATBOT_GSHEET_WEBHOOK_URL;
@@ -26,6 +29,9 @@ export async function logChatQuery(input: ChatLogInput) {
     status: input.status,
     error: input.error ?? null,
     model: input.model,
+    retrievedDocIds: input.retrievedDocIds ?? [],
+    fallbackUsed: input.fallbackUsed ?? false,
+    confidenceBand: input.confidenceBand ?? null,
     createdAt: FieldValue.serverTimestamp(),
   });
 
@@ -46,6 +52,9 @@ export async function logChatQuery(input: ChatLogInput) {
       status: input.status,
       error: input.error ?? "",
       model: input.model,
+      retrievedDocIds: input.retrievedDocIds ?? [],
+      fallbackUsed: input.fallbackUsed ?? false,
+      confidenceBand: input.confidenceBand ?? "",
     }),
   });
 }

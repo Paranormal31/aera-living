@@ -21,11 +21,11 @@ export default function Footer() {
     <footer className="bg-[#2b2b28] text-white">
       {/* Partner CTA */}
       <section className="py-32 text-center">
-        <h2 className="font-serif text-4xl md:text-5xl">
+        <h2 className="mx-auto max-w-[16ch] px-6 font-serif text-4xl md:max-w-none md:px-0 md:text-5xl">
           Partner With AeraLiving
         </h2>
 
-        <p className="mt-6 max-w-2xl mx-auto text-neutral-300 leading-relaxed">
+        <p className="mt-6 mx-auto max-w-[32ch] px-6 text-neutral-300 leading-relaxed md:max-w-2xl md:px-0">
           Join our profit-sharing program and earn passive income while we
           manage your property with excellence.
         </p>
@@ -84,7 +84,9 @@ export default function Footer() {
                 <Link href="/faq">FAQ</Link>
               </li>
               <li>Privacy Policy</li>
-              <li>Terms of Service</li>
+              <li>
+                <Link href="/terms-of-service">Terms of Service</Link>
+              </li>
             </ul>
           </div>
 
