@@ -163,6 +163,19 @@ export const LOCATION_LISTINGS: ListingLocation[] = [
     image: "/images/doons-den.jpg",
     tags: ["Spacious", "Modern", "Family Friendly"],
   },
+  {
+    name: "Terra House",
+    slug: "terra-house",
+    city: "Dehradun, India",
+    price: "Starting from ₹6,500",
+    rating: 5,
+    reviews: "New Launch",
+    bedrooms: 2,
+    guests: 4,
+    bathrooms: 2,
+    image: "/images/terra-house.jpg",
+    tags: ["Nature Facing", "Spacious", "Family Friendly"],
+  },
 ];
 
 export const PROPERTY_DATA: Record<string, Property> = {
@@ -415,6 +428,154 @@ export const PROPERTY_DATA: Record<string, Property> = {
       title: "Doon's Den – AERA Living",
       link: "https://www.google.com/maps?hl=en&gl=in&um=1&ie=UTF-8&fb=1&sa=X&ftid=0x3908d5775cebf083:0x97701f5a5586f717",
       embed: "https://www.google.com/maps?q=Doon%27s%20Den%20AERA%20Living%20Dehradun&z=16&output=embed",
+    },
+  },
+  "terra-house": {
+    name: "Terra House",
+    city: "Dehradun, India",
+    bedrooms: 2,
+    guests: 4,
+    bathrooms: 2,
+    price: 6500,
+    rating: 5,
+    reviews: "New Launch",
+    description:
+      "The Terra House is a peaceful 2BHK villa in Sahastradhara with mountain views, a private balcony swing, and a cozy lawn seating area. Featuring spacious bedrooms, a warm living space, and dedicated work & workout corners, it's perfect for relaxing getaways, workations, and small groups seeking comfort, privacy, and a calm escape.",
+    amenities: [
+      { icon: "📶", name: "High-Speed WiFi" },
+      { icon: "🔥", name: "Firepit" },
+      { icon: "🚗", name: "Free Parking" },
+      { icon: "🚬", name: "Smoking Allowed" },
+      { icon: "🔑", name: "Self Check-in" },
+      { icon: "🛡️", name: "Home Safety" },
+    ],
+    amenitiesDetailed: [
+      {
+        title: "Home safety",
+        items: [
+          { name: "Exterior security cameras on property", note: "Camera at the premise to track entry" },
+          { name: "Fire extinguisher" },
+          { name: "First aid kit" },
+        ],
+      },
+      {
+        title: "Internet and office",
+        items: [{ name: "Wifi" }],
+      },
+      {
+        title: "Outdoor",
+        items: [{ name: "Firepit" }, { name: "Outdoor dining area" }],
+      },
+      {
+        title: "Parking and facilities",
+        items: [{ name: "Free parking on premises" }],
+      },
+      {
+        title: "Services",
+        items: [
+          { name: "Smoking allowed" },
+          { name: "Self check-in" },
+          { name: "Building staff", note: "Someone is available 24 hours a day to let guests in" },
+        ],
+      },
+      {
+        title: "Not included",
+        items: [
+          { name: "Kitchen", unavailable: true },
+          { name: "TV", unavailable: true },
+          { name: "Washing machine", unavailable: true },
+          { name: "Tumble dryer", unavailable: true },
+          { name: "Air conditioning", unavailable: true },
+          { name: "Essentials", unavailable: true },
+          {
+            name: "Smoke alarm",
+            note: "This place may not have a smoke detector. Contact the host with any questions.",
+            unavailable: true,
+          },
+          {
+            name: "Carbon monoxide alarm",
+            note: "This place may not have a carbon monoxide detector. Contact the host with any questions.",
+            unavailable: true,
+          },
+          { name: "Heating", unavailable: true },
+          { name: "Hot water", unavailable: true },
+        ],
+      },
+    ],
+    collageImages: [
+      "/locations/terra-house/1.jpg",
+      "/locations/terra-house/2.jpg",
+      "/locations/terra-house/3.jpg",
+    ],
+    photoSections: [
+      {
+        id: "living-room",
+        title: "Living room",
+        images: [
+          "/locations/terra-house/living-room/1.jpg",
+          "/locations/terra-house/living-room/2.jpg",
+          "/locations/terra-house/living-room/3.jpg",
+          "/locations/terra-house/living-room/4.jpg",
+        ],
+      },
+      {
+        id: "bedroom-1",
+        title: "Bedroom 1",
+        images: [
+          "/locations/terra-house/bedroom-1/1.jpg",
+          "/locations/terra-house/bedroom-1/2.jpg",
+          "/locations/terra-house/bedroom-1/3.jpg",
+          "/locations/terra-house/bedroom-1/4.jpg",
+        ],
+      },
+      {
+        id: "bedroom-2",
+        title: "Bedroom 2",
+        images: [
+          "/locations/terra-house/bedroom-2/1.jpg",
+          "/locations/terra-house/bedroom-2/2.jpg",
+          "/locations/terra-house/bedroom-2/3.jpg",
+        ],
+      },
+      {
+        id: "bathroom-1",
+        title: "Full bathroom 1",
+        images: ["/locations/terra-house/bathroom-1/1.jpg"],
+      },
+      {
+        id: "bathroom-2",
+        title: "Full bathroom 2",
+        images: ["/locations/terra-house/bathroom-2/1.jpg"],
+      },
+      {
+        id: "outdoor",
+        title: "Outdoor",
+        images: [
+          "/locations/terra-house/outdoor/1.jpg",
+          "/locations/terra-house/outdoor/2.jpg",
+          "/locations/terra-house/outdoor/3.jpg",
+          "/locations/terra-house/outdoor/4.jpg",
+          "/locations/terra-house/outdoor/5.jpg",
+        ],
+      },
+      {
+        id: "additional-photos",
+        title: "Additional photos",
+        images: [
+          "/locations/terra-house/additional-photos/1.png",
+          "/locations/terra-house/additional-photos/2.jpg",
+          "/locations/terra-house/additional-photos/3.jpg",
+          "/locations/terra-house/additional-photos/4.jpg",
+          "/locations/terra-house/additional-photos/5.jpg",
+          "/locations/terra-house/additional-photos/6.jpg",
+        ],
+      },
+    ],
+    bookedDates: [],
+    map: {
+      title: "The Terra House – Curated Stay by AERA Living",
+      link: "https://www.google.com/maps/place/The+Terra+House+%7C+Curated+Stay+by+AERA+Living/@30.3631543,78.1137644,17z/data=!3m1!4b1!4m6!3m5!1s0x3908d957f8fd7d09:0x537debe5f9cd8994!8m2!3d30.3631543!4d78.1137644!16s%2Fg%2F11nhlmky1y!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D",
+      embed: "https://www.google.com/maps?q=30.3631543,78.1137644&z=17&output=embed",
     },
   },
 };

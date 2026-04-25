@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import { FieldValue } from "firebase-admin/firestore";
 import { getDb } from "@/lib/firebaseAdmin";
+import { logBookingInquiryToSheet } from "@/lib/bookingSheet";
 import { PROPERTY_DATA } from "@/lib/siteContent";
 
 export type BookingIntentInput = {
@@ -336,6 +337,22 @@ export async function processBookingIntent(input: BookingIntentInput): Promise<B
         fastSubmit: Boolean(input.formStartedAt && nowMs - input.formStartedAt < MIN_SUBMIT_MS),
       },
     });
+
+    if ((input.source || "api") === "chatbot") {
+      try {
+        await logBookingInquiryToSheet({
+          inquiryId: docRef.id,
+          source: "chatbot",
+          name,
+          contact,
+          checkIn: toDateOnly(checkIn),
+          checkOut: toDateOnly(checkOut),
+          guests,
+        });
+      } catch (sheetError) {
+        console.error("logBookingInquiryToSheet failed", sheetError);
+      }
+    }
 
     return {
       ok: true,

@@ -7,6 +7,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Aera Living | Luxury Stays in Dehradun",
   description: "Luxury stays and interior design by Aera Living",
+  icons: {
+    icon: "/brand/aeraliving-logo.jpeg",
+    shortcut: "/brand/aeraliving-logo.jpeg",
+    apple: "/brand/aeraliving-logo.jpeg",
+  },
 };
 
 export default function RootLayout({
