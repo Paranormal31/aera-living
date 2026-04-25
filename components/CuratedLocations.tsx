@@ -9,7 +9,7 @@ export default function CuratedLocations() {
       slug: "retro-den",
       image: "/locations/retro-den.jpg",
       description: "A bold, retro-inspired stay with artistic interiors.",
-      price: "Starting from ₹2,500 / night",
+      price: "Starting from ₹2,499 / night",
     },
     {
       name: "Doon’s Den",
@@ -17,7 +17,7 @@ export default function CuratedLocations() {
       slug: "doons-den",
       image: "/locations/doons-den.jpg",
       description: "A warm, cozy retreat nestled in the heart of the valley.",
-      price: "₹3,400 / night",
+      price: "₹3,399 / night",
     },
     {
       name: "Terra House",
@@ -25,7 +25,7 @@ export default function CuratedLocations() {
       slug: "terra-house",
       image: "/locations/terra-house.jpg",
       description: "A calm, curated stay with lush views and warm interiors.",
-      price: "₹6,500 / night",
+      price: "₹6,499 / night",
     },
   ];
 
