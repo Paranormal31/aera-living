@@ -64,6 +64,9 @@ export default function Footer() {
             <p className="mb-4 font-medium">EXPLORE</p>
             <ul className="space-y-3 text-sm text-neutral-400">
               <li>
+                <Link href="/about">About</Link>
+              </li>
+              <li>
                 <Link href="/locations">Our Locations</Link>
               </li>
               <li>
