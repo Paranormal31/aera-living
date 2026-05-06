@@ -11,6 +11,7 @@ export function Navigation() {
 
   const navLinks = [
     { path: "/", label: "Home" },
+    { path: "/about", label: "About" },
     { path: "/locations", label: "Locations" },
     { path: "/interior-design", label: "Interior Design" },
     { path: "/customer-review", label: "Customer Review" },
