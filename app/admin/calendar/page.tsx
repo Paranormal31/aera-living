@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { ChevronLeft, ChevronRight, RefreshCw, Calendar, Trash2, Plus, LogOut, CheckCircle, AlertCircle } from "lucide-react";
+import { ChevronLeft, ChevronRight, RefreshCw, Calendar, Trash2, Plus, Minus, LogOut, CheckCircle, AlertCircle } from "lucide-react";
 import { PROPERTY_DATA } from "@/lib/siteContent";
 
 type BlockedDate = {
@@ -602,34 +602,6 @@ export default function AdminCalendarPage() {
               </div>
             </div>
 
-            {/* HTML Source Sync */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 space-y-4">
-              <div className="flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-gray-600" />
-                <h3 className="text-lg font-semibold text-gray-950">HTML Source Sync</h3>
-              </div>
-              <p className="text-xs text-gray-500 leading-relaxed">
-                If the direct sync is rate-limited: Open your listing page in your browser, press <strong>Ctrl+U</strong> (View Source), copy all, and paste it below.
-              </p>
-              <div className="space-y-3">
-                <textarea
-                  value={pastedHtml}
-                  onChange={(e) => setPastedHtml(e.target.value)}
-                  placeholder="Paste HTML source code here..."
-                  rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs text-gray-900 focus:outline-none focus:border-foreground resize-none"
-                />
-                <button
-                  onClick={handleHtmlPasteSync}
-                  disabled={isSyncing || !pastedHtml}
-                  className="w-full bg-foreground text-white py-2 rounded-lg text-xs font-semibold hover:bg-foreground/90 transition flex items-center justify-center gap-1.5 disabled:opacity-50"
-                >
-                  <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? "animate-spin" : ""}`} />
-                  Parse Pasted HTML
-                </button>
-              </div>
-            </div>
-
             {/* Manual Bookings Form */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 space-y-4">
               <div className="flex items-center gap-2">
@@ -682,15 +654,26 @@ export default function AdminCalendarPage() {
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-gray-600 mb-1">Guests</label>
-                  <select
-                    value={manualGuests}
-                    onChange={(e) => setManualGuests(Number(e.target.value))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:border-foreground"
-                  >
-                    {[1,2,3,4,5,6,7,8,9,10,11,12].map(num => (
-                      <option key={num} value={num}>{num} Guests</option>
-                    ))}
-                  </select>
+                  <div className="flex items-center justify-between border border-gray-300 rounded-lg p-2 bg-white">
+                    <span className="text-gray-950 px-1 font-medium">{manualGuests} {manualGuests === 1 ? "Guest" : "Guests"}</span>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setManualGuests(Math.max(1, manualGuests - 1))}
+                        disabled={manualGuests <= 1}
+                        className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-50 text-gray-700 font-bold disabled:opacity-40 transition"
+                      >
+                        <Minus className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setManualGuests(manualGuests + 1)}
+                        className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-50 text-gray-700 font-bold transition"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <button
                   type="submit"

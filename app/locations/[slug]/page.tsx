@@ -4,15 +4,31 @@ import BookingWidget from "@/components/BookingWidget";
 import SeeAllPhotos from "@/components/SeeAllPhotos";
 import { PROPERTY_DATA } from "@/lib/siteContent";
 
+export const dynamic = "force-dynamic";
+
 type Props = {
   params: Promise<{
     slug: string;
   }>;
 };
 
+import { getDb } from "@/lib/firebaseAdmin";
+
 export default async function LocationPage({ params }: Props) {
   const { slug } = await params;
   const property = PROPERTY_DATA[slug] || PROPERTY_DATA["retro-den"];
+  
+  let dynamicBookedDates: string[] = [];
+  try {
+    const db = getDb();
+    const blockedSnap = await db.collection("blockedDates").where("propertySlug", "==", slug).get();
+    dynamicBookedDates = blockedSnap.docs.map(doc => doc.data().date);
+  } catch (error) {
+    console.error("Failed to fetch dynamic blocked dates", error);
+  }
+
+  const allBookedDates = Array.from(new Set([...(property.bookedDates || []), ...dynamicBookedDates]));
+
   const sectionImages: string[] = (property.photoSections || []).flatMap(
     (section: { images: string[] }) => section.images,
   );
@@ -117,9 +133,10 @@ export default async function LocationPage({ params }: Props) {
               price={property.price}
               reviews={property.reviews}
               maxGuests={property.guests}
-              bookedDates={property.bookedDates || []}
+              bookedDates={allBookedDates}
               maxBedrooms={property.bedrooms}
               pricePerBedroom={property.pricePerBedroom}
+              propertySlug={slug}
             />
           </div>
         </div>
