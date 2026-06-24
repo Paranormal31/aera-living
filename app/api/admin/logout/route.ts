@@ -8,7 +8,14 @@ export async function POST() {
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
-    maxAge: 0, // expire immediately
+    maxAge: 0,
+  });
+  cookieStore.set("expenses_session", "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: 0,
   });
   return NextResponse.json({ success: true });
 }
