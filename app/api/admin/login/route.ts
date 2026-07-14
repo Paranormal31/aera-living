@@ -27,7 +27,7 @@ export async function POST(request: Request) {
     const { passkey, type } = await request.json();
     const isExpenses = type === "expenses";
     const adminPasskey = isExpenses
-      ? (process.env.EXPENSES_PASSKEY || "AeraLivingExpenses@2026")
+      ? (process.env.EXPENSES_PASSKEY || "AeraLiving_2026")
       : getAdminPasskey();
     const cookieName = isExpenses ? "expenses_session" : "admin_session";
 

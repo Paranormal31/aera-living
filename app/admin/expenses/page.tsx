@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { LogOut, Trash2, Plus, DollarSign, User, Building, MapPin, Tag, Calendar as CalendarIcon, RefreshCw, CheckCircle, AlertCircle } from "lucide-react";
+import { LogOut, Trash2, Plus, DollarSign, User, Building, MapPin, Tag, Calendar as CalendarIcon, RefreshCw, CheckCircle, AlertCircle, Eye, EyeOff } from "lucide-react";
 
 type Expense = {
   id: string;
@@ -44,6 +44,7 @@ function formatDisplayDate(dateStr: string): string {
 export default function AdminExpensesPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passkey, setPasskey] = useState("");
+  const [showPasskey, setShowPasskey] = useState(false);
   const [authError, setAuthError] = useState("");
 
   // Data States
@@ -257,13 +258,23 @@ export default function AdminExpensesPage() {
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">Passkey</label>
-              <input
-                type="password"
-                value={passkey}
-                onChange={(e) => setPasskey(e.target.value)}
-                placeholder="Enter admin passkey"
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl text-gray-900 focus:outline-none focus:border-foreground"
-              />
+              <div className="relative">
+                <input
+                  type={showPasskey ? "text" : "password"}
+                  value={passkey}
+                  onChange={(e) => setPasskey(e.target.value)}
+                  placeholder="Enter admin passkey"
+                  className="w-full pl-4 pr-10 py-3 border border-gray-300 rounded-xl text-gray-900 focus:outline-none focus:border-foreground"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPasskey(!showPasskey)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+                  aria-label={showPasskey ? "Hide passkey" : "Show passkey"}
+                >
+                  {showPasskey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
             {authError && <p className="text-xs text-red-600 font-medium">{authError}</p>}
             <button
