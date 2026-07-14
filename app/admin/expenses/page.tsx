@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { LogOut, Trash2, Plus, DollarSign, User, Building, MapPin, Tag, Calendar as CalendarIcon, RefreshCw, CheckCircle, AlertCircle, Eye, EyeOff } from "lucide-react";
+import { LogOut, Trash2, Plus, IndianRupee, User, Building, MapPin, Tag, Calendar as CalendarIcon, RefreshCw, CheckCircle, AlertCircle, Eye, EyeOff } from "lucide-react";
 
 type Expense = {
   id: string;
@@ -333,7 +333,7 @@ export default function AdminExpensesPage() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex items-center gap-4">
             <div className="p-3 bg-green-50 text-green-700 rounded-xl">
-              <DollarSign className="w-6 h-6" />
+              <IndianRupee className="w-6 h-6" />
             </div>
             <div>
               <p className="text-xs text-gray-500 font-medium">Total Spent</p>
