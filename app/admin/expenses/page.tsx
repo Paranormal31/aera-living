@@ -11,7 +11,7 @@ type Expense = {
   location: string;
   paymentMethod: "Cash" | "UPI";
   spender: "Ekaagra" | "Achal" | "Tiwari";
-  property: "Doons Den" | "The Retro Den" | "Terra House";
+  property: "Doons Den" | "The Retro Den" | "Terra House" | "Studio";
   date: string;
   createdAt: string;
 };
@@ -62,7 +62,7 @@ export default function AdminExpensesPage() {
   const [customLocation, setCustomLocation] = useState("");
   const [paymentMethod, setPaymentMethod] = useState<"Cash" | "UPI">("Cash");
   const [spender, setSpender] = useState<"Ekaagra" | "Achal" | "Tiwari">("Ekaagra");
-  const [property, setProperty] = useState<"Doons Den" | "The Retro Den" | "Terra House">("Doons Den");
+  const [property, setProperty] = useState<"Doons Den" | "The Retro Den" | "Terra House" | "Studio">("Doons Den");
   const [date, setDate] = useState(() => {
     const today = new Date();
     const yyyy = today.getFullYear();
@@ -229,7 +229,7 @@ export default function AdminExpensesPage() {
   // Stats Calculations
   const stats = useMemo(() => {
     let total = 0;
-    const byProperty: Record<string, number> = { "Doons Den": 0, "The Retro Den": 0, "Terra House": 0 };
+    const byProperty: Record<string, number> = { "Doons Den": 0, "The Retro Den": 0, "Terra House": 0, "Studio": 0 };
     const bySpender: Record<string, number> = { Ekaagra: 0, Achal: 0, Tiwari: 0 };
     const byCategory: Record<string, number> = {};
 
@@ -454,6 +454,7 @@ export default function AdminExpensesPage() {
                     <option value="Doons Den">Doons Den</option>
                     <option value="The Retro Den">The Retro Den</option>
                     <option value="Terra House">Terra House</option>
+                    <option value="Studio">Studio</option>
                   </select>
                 </div>
               </div>
