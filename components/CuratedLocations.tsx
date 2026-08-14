@@ -4,12 +4,20 @@ import Link from "next/link";
 export default function CuratedLocations() {
   const locations = [
     {
+      name: "Room 4O4",
+      city: "Dehradun",
+      slug: "room-4o4",
+      image: "/locations/room-4o4/living-room/1.jpeg",
+      description: "A minimalist, aesthetic space designed by Aera Living.",
+      price: "₹2,499 / night",
+    },
+    {
       name: "The Retro Den",
       city: "Dehradun",
       slug: "retro-den",
       image: "/locations/retro-den.jpg",
       description: "A bold, retro-inspired stay with artistic interiors.",
-      price: "Starting from ₹2,499 / night",
+      price: "₹9,999 / night",
     },
     {
       name: "Doon’s Den",

@@ -16,12 +16,13 @@ import { getDb } from "@/lib/firebaseAdmin";
 
 export default async function LocationPage({ params }: Props) {
   const { slug } = await params;
-  const property = PROPERTY_DATA[slug] || PROPERTY_DATA["retro-den"];
+  const normalizedSlug = slug === "room-404" ? "room-4o4" : slug;
+  const property = PROPERTY_DATA[normalizedSlug] || PROPERTY_DATA["room-4o4"] || PROPERTY_DATA["retro-den"];
   
   let dynamicBookedDates: string[] = [];
   try {
     const db = getDb();
-    const blockedSnap = await db.collection("blockedDates").where("propertySlug", "==", slug).get();
+    const blockedSnap = await db.collection("blockedDates").where("propertySlug", "==", normalizedSlug).get();
     dynamicBookedDates = blockedSnap.docs.map(doc => doc.data().date);
   } catch (error) {
     console.error("Failed to fetch dynamic blocked dates", error);
@@ -136,7 +137,9 @@ export default async function LocationPage({ params }: Props) {
               bookedDates={allBookedDates}
               maxBedrooms={property.bedrooms}
               pricePerBedroom={property.pricePerBedroom}
-              propertySlug={slug}
+              disableBedroomSelection={property.disableBedroomSelection}
+              defaultBedrooms={property.defaultBedrooms}
+              propertySlug={normalizedSlug}
             />
           </div>
         </div>

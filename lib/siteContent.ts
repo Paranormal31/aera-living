@@ -53,6 +53,8 @@ export type Property = {
   bathrooms: number;
   price: number;
   pricePerBedroom?: number;
+  disableBedroomSelection?: boolean;
+  defaultBedrooms?: number;
   rating: number;
   reviews: string | number;
   description: string;
@@ -138,10 +140,23 @@ export const FAQS: FAQItem[] = [
 
 export const LOCATION_LISTINGS: ListingLocation[] = [
   {
+    name: "Room 4O4",
+    slug: "room-4o4",
+    city: "Dehradun, India",
+    price: "₹2,499",
+    rating: 5,
+    reviews: "New Launch",
+    bedrooms: 1,
+    guests: 2,
+    bathrooms: 1,
+    image: "/locations/room-4o4/living-room/1.jpeg",
+    tags: ["Designed by Aera", "Modern", "Workstation"],
+  },
+  {
     name: "Retro Den",
     slug: "retro-den",
     city: "Dehradun, India",
-    price: "Starting from ₹2,499",
+    price: "₹9,999",
     rating: 5,
     reviews: "New Launch",
     bedrooms: 4,
@@ -179,14 +194,94 @@ export const LOCATION_LISTINGS: ListingLocation[] = [
 ];
 
 export const PROPERTY_DATA: Record<string, Property> = {
+  "room-4o4": {
+    name: "ROOM 4O4",
+    city: "Dehradun, India",
+    bedrooms: 1,
+    guests: 2,
+    bathrooms: 1,
+    price: 2499,
+    rating: 5.0,
+    reviews: "New Launch",
+    description:
+      "Designed by Aera Living, ROOM 4O4 is a refined, aesthetic studio stay featuring clean lines, premium comfort, and modern convenience in Dehradun. Perfect for couples, solo travelers, and remote work.",
+    amenities: [
+      { icon: "📶", name: "High-Speed WiFi" },
+      { icon: "🍳", name: "Kitchen" },
+      { icon: "💻", name: "Dedicated Workspace" },
+      { icon: "🚗", name: "Free Parking" },
+      { icon: "📺", name: "Smart TV" },
+      { icon: "❄️", name: "Air Conditioning" },
+    ],
+    amenitiesDetailed: [
+      {
+        title: "Popular Amenities",
+        items: [
+          { name: "Kitchen" },
+          { name: "Wifi" },
+          { name: "Dedicated workspace" },
+          { name: "Free parking on premises" },
+          { name: "TV" },
+          { name: "Air conditioning" },
+          { name: "Fridge" },
+        ],
+      },
+      {
+        title: "Bathroom & Essentials",
+        items: [
+          { name: "Hot water" },
+          { name: "Shampoo" },
+          { name: "Body soap" },
+          { name: "Shower gel" },
+          { name: "Essentials", note: "Towels, bed sheets, soap and toilet paper" },
+          { name: "Hangers" },
+        ],
+      },
+    ],
+    collageImages: [
+      "/locations/room-4o4/living-room/1.jpeg",
+      "/locations/room-4o4/bedroom/1.jpeg",
+      "/locations/room-4o4/kitchenette/1.jpeg",
+    ],
+    photoSections: [
+      { id: "living-room", title: "Living room", images: ["/locations/room-4o4/living-room/1.jpeg", "/locations/room-4o4/living-room/2.jpeg"] },
+      { id: "kitchenette", title: "Kitchenette", images: ["/locations/room-4o4/kitchenette/1.jpeg", "/locations/room-4o4/kitchenette/2.jpeg", "/locations/room-4o4/kitchenette/3.jpeg", "/locations/room-4o4/kitchenette/4.jpeg"] },
+      { id: "bedroom", title: "Bedroom", images: ["/locations/room-4o4/bedroom/1.jpeg", "/locations/room-4o4/bedroom/2.jpeg", "/locations/room-4o4/bedroom/3.jpeg", "/locations/room-4o4/bedroom/4.jpeg", "/locations/room-4o4/bedroom/5.jpeg"] },
+      { id: "bathroom", title: "Full bathroom", images: ["/locations/room-4o4/bathroom/1.jpeg", "/locations/room-4o4/bathroom/2.jpeg"] },
+      { id: "workspace", title: "Workspace", images: ["/locations/room-4o4/workspace/1.jpeg"] },
+      { id: "balcony", title: "Balcony", images: ["/locations/room-4o4/balcony/1.jpeg"] },
+      { id: "additional-photos", title: "Additional photos", images: ["/locations/room-4o4/additional-photos/1.jpeg", "/locations/room-4o4/additional-photos/2.jpeg"] },
+    ],
+    bookedDates: [
+      "2026-08-01",
+      "2026-08-02",
+      "2026-08-03",
+      "2026-08-04",
+      "2026-08-05",
+      "2026-08-06",
+      "2026-08-07",
+      "2026-08-08",
+      "2026-08-10",
+      "2026-08-11",
+      "2026-08-12",
+      "2026-08-13",
+    ],
+    map: {
+      title: "ROOM 4O4 — Designed by Aera Living",
+      link: "https://www.google.com/maps/place/ROOM+4O4+%E2%80%94+Designed+by+Aera+Living/@30.3700727,77.9783418,19z/data=!4m6!3m5!1s0x3908d5d16c712a61:0x2ab890e7bcf1b965!8m2!3d30.3700489!4d77.9785794!16s%2Fg%2F11zdncdndy?hl=en-us&entry=ttu&g_ep=EgoyMDI2MDgxMS4wIKXMDSoASAFQAw%3D%3D",
+      embed: "https://maps.google.com/maps?q=30.3700727,77.9783418&z=19&output=embed",
+    },
+  },
   "retro-den": {
     name: "The Retro Den",
     city: "Dehradun, India",
     bedrooms: 4,
     guests: 12,
     bathrooms: 3,
-    price: 9996,
+    price: 9999,
     pricePerBedroom: 2499,
+    disableBedroomSelection: true,
+    defaultBedrooms: 4,
     rating: 4.9,
     reviews: "New Launch",
     description:
