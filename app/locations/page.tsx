@@ -6,7 +6,12 @@ export default function LocationsPage() {
   return (
     <main className="bg-[#fafaf8]">
       {/* Header */}
-      <section className="text-center py-10 sm:py-20 px-4 sm:px-6">
+      <section className="text-center pt-12 pb-10 sm:pt-16 sm:pb-16 px-4 sm:px-6">
+        <h2 className="text-3xl sm:text-5xl font-serif mb-3 sm:mb-4 text-foreground">A Little About Us</h2>
+        <p className="max-w-2xl mx-auto text-sm sm:text-base text-gray-600 leading-relaxed mb-10 sm:mb-14">
+          We are a premium Airbnb hosting and property management company. Explore our curated selection of top property picks designed for comfort and memorable stays.
+        </p>
+
         <h1 className="text-3xl sm:text-5xl font-serif mb-3 sm:mb-4 text-foreground">Our Locations</h1>
         <p className="max-w-2xl mx-auto text-sm sm:text-base text-gray-600 leading-relaxed">
           Handpicked properties in the world&apos;s most desirable destinations.
